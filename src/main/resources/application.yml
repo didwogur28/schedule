@@ -1,0 +1,38 @@
+##################################################################################################
+## yaml 문법
+## 하위 계층으로 내려갈 때 tab이 아닌 스페이스바를 사용하고, 콜론(:)이나 하이픈(-) 이후에 공백 한칸도 필요하다!!
+##################################################################################################
+
+#Enc
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+    password: "${SCHEDULE_ENCRYPT:}"
+    property:
+      prefix: ENC(
+      suffix: )
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://rfrds.refinedev.io:5432/rfdev
+    username: ENC(evHgmfWiaaUl3Qysu9SxP9xtNy3ZD2FI)
+    password: ENC(o6UZ1pNG/QOSzlf7V/GflgfGC2Dn0/B9)
+    dbName: ENC(TWg2qJr95EodzG5iXK+B5Q==)
+    maxTotal: 100
+    maxIdle: 10
+    minIdle: 1
+    maxWaitMillis: 1000
+    configLocation: classpath:META-INF/mybatis/mybatis-config.xml
+    mapperLocations: classpath*:com/schedule/SQL/**/*.xml
+    maxOpenPreparedStatements: 100
+    testOnBorrow: true
+    testWileIdle: true
+    validationQuery: SELECT 1
+    validationInterval: 30000
+
+
