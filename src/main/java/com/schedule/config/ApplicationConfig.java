@@ -23,8 +23,16 @@ public class ApplicationConfig extends WebMvcConfigurationSupport {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry
-	      .addResourceHandler("/resources/**")
-	      .addResourceLocations("/resources/");
+			.addResourceHandler("/resources/**")
+	      	.addResourceLocations("/resources/");
+
+		registry
+			.addResourceHandler("/plugins/**")
+			.addResourceLocations("/resources/plugins/");
+
+		registry
+			.addResourceHandler("/dist/**")
+			.addResourceLocations("/resources/dist/");
 	}
 	
 	@Override

@@ -11,6 +11,6 @@ public class testController {
     public String testGoPage() {
 
         System.out.println("GO_TESTPAGE");
-        return "testPage";
+        return "index";
     }
 }
