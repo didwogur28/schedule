@@ -46,8 +46,6 @@ dependencies {
     annotationProcessor('org.projectlombok:lombok')
     implementation('org.projectlombok:lombok')
 
-    implementation('org.springframework.session:spring-session-jdbc')
-
     testImplementation("org.springframework.security:spring-security-test")
 
     implementation 'javax.servlet:jstl'

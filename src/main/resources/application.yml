@@ -19,10 +19,10 @@ spring:
       suffix: .jsp
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://rfrds.refinedev.io:5432/rfdev
-    username: ENC(evHgmfWiaaUl3Qysu9SxP9xtNy3ZD2FI)
-    password: ENC(o6UZ1pNG/QOSzlf7V/GflgfGC2Dn0/B9)
-    dbName: ENC(TWg2qJr95EodzG5iXK+B5Q==)
+    url: jdbc:postgresql://localhost:5432/schdb
+    username: ENC(EtkDutNBQdiXl6emQ8DWog==)
+    password: ENC(/g5RmeebB1keSoZe38Mu62Lvu1GWJ8d4)
+    dbName: ENC(asCNfBuIkMzKmWqpRUHZ8g==)
     maxTotal: 100
     maxIdle: 10
     minIdle: 1
@@ -34,5 +34,3 @@ spring:
     testWileIdle: true
     validationQuery: SELECT 1
     validationInterval: 30000
-
-

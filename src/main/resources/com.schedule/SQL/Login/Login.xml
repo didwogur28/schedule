@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Thu Jan 29 13:11:14 KST 2015-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN""http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.schedule.SQL.login">
+
+    <!-- 회원기입 -->
+    <insert id="doRegister" parametertype="java.util.HashMap">
+        insert into sch.sch_usr (
+                                  cpn_cd
+                                 ,usr_id
+                                 ,pwd_no
+                                 ,usr_nm
+                                 ,pho_no
+                                 ,roles
+                                 ,use_yn
+                                 ,ins_id
+                                 ,ins_dttm
+        ) values (
+                   lpad(nextval('cpn_seq')::varchar, 3, '0')
+                  ,#{usrId}
+                  ,#{pwdNo}
+                  ,#{usrNm}
+                  ,#{phoNo}
+                  ,#{roles}
+                  ,'Y'
+                  ,'YJH'
+                  ,now()
+        )
+    </insert>
+</mapper>
