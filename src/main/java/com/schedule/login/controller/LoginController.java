@@ -8,6 +8,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -45,26 +47,22 @@ public class LoginController {
 
     // 회원가입
     @RequestMapping(value = "/doRegister", method = RequestMethod.POST)
-    public String doRegister(HttpServletRequest request, Map <String, Object> modelMap) throws Exception {
+    @ResponseBody
+    public Map<String, Object> doRegister(@RequestParam Map <String, Object> modelMap) throws Exception {
 
-        modelMap.put("usrId", request.getAttribute("usrId"));
-        modelMap.put("pwdNo", Util.digestStringSHA256((String) request.getAttribute("pwdNo")));
-        modelMap.put("usrNm", request.getAttribute("usrNm"));
-        modelMap.put("phoNo", request.getAttribute("phoNo"));
-        modelMap.put("roles", request.getAttribute("roles"));
+        modelMap.put("pwdNo", Util.digestStringSHA256((String) modelMap.get("pwdNo")));
 
         Map<String, Object> result = new HashMap<String, Object>();
-
         try {
 
             loginService.doRegister(modelMap);
-            return "login/login";
+            result.put("status", "OK");
 
         } catch (Exception e) {
             result.put("status", "FALE");
             result.put("msg", e.toString());
         }
 
-        return "login/register";
+        return result;
     }
 }

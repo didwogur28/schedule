@@ -53,7 +53,7 @@
                 </p>
 
                 <p class="mb-0">
-                    <a href="/schedule/login/goRegister" class="text-center">Register a new membership</a>
+                    <a href="/schedule/goRegister" class="text-center">Register a new membership</a>
                 </p>
             </div>
         </div>

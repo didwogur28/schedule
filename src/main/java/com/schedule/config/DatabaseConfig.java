@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableConfigurationProperties({DatabaseProperties.class})
-@MapperScan(basePackages = "com.schedule.mapper")
+@MapperScan(basePackages = "com.schedule.SQL.*")
 public class DatabaseConfig {
 
     @Autowired

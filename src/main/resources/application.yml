@@ -34,3 +34,38 @@ spring:
     testWileIdle: true
     validationQuery: SELECT 1
     validationInterval: 30000
+
+logging:
+  level:
+    root: DEBUG
+    sun: DEBUG
+    org:
+      openqa.selenium: WARN
+      apache: WARN
+      quartz: WARN
+      springframework: WARN
+      springframework.web: WARN
+      hibernate: ERROR
+    # showSql
+    jdbc: WARN
+    jdbc.sqlonly: WARN
+    # log SQL with timing information, post execution
+    jdbc.sqltiming: INFO
+    # log4jdbc option  log the jdbc results as a table
+    jdbc.resultsettable: INFO
+
+    javax: INFO
+
+    springfox: WARN
+
+    org.mybatis: INFO
+    java:
+      sql: INFO
+      sql.connection: DEBUG
+      sql.Statement: DEBUG
+      sql.PreparedStatement: DEBUG
+    com.refine:
+      SQL: WARN
+      common.RfContextAware: DEBUG
+    biz.refine: WARN
+    log4jdbc.debug : WARN

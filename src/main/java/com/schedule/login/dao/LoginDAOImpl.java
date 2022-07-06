@@ -14,6 +14,6 @@ public class LoginDAOImpl implements LoginDAO {
 
     @Override
     public void doRegister(Map<String, Object> modelMap) throws Exception {
-        sql.insert("login.doRegister", modelMap);
+        sql.update("login.doRegister", modelMap);
     }
 }

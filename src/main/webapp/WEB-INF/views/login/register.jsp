@@ -42,7 +42,7 @@
         }
 
         // 회원가입 처리
-        function doRegister() {
+        function doRgstr() {
 
             rgstrNullChk()
 
@@ -51,12 +51,20 @@
             $.ajax({
                 data: formData,
                 type: "POST",
-                url: "/schedule/login/doRegister",
+                url: "/schedule/doRegister",
                 success: function (result) {
-                    alert('111');
+                    if(result != null) {
+                        if(result.status == "OK") {
+                            location.href = "/schedule/goLogin";
+                        } else {
+                            alert("회원가입 실패 : " + result.msg);
+                            return false;
+                        }
+                    } else {
+                        alert("회원가입 실패");
+                    }
                 }
             })
-
         }
     </script>
 </head>
@@ -69,7 +77,7 @@
 
                 <form id="doRegister" name="doRegister" method="POST">
                     <div class="input-group mb-3">
-                        <input type="text" name="usrId" class="form-control" placeholder="아이디">
+                        <input type="text" id="usrId" name="usrId" class="form-control" placeholder="아이디">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-exclamation"></span>
@@ -78,7 +86,7 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input type="password" name="pwdNo" class="form-control" placeholder="비밀번호">
+                        <input type="password" id="pwdNo" name="pwdNo" class="form-control" placeholder="비밀번호">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -87,7 +95,7 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input type="password" name="pwdNoChk" class="form-control" placeholder="비밀번호 확인">
+                        <input type="password" id="pwdNoChk" name="pwdNoChk" class="form-control" placeholder="비밀번호 확인">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -96,7 +104,7 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input type="text" name="usrNm" class="form-control" placeholder="이름">
+                        <input type="text" id="usrNm" name="usrNm" class="form-control" placeholder="이름">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -105,7 +113,7 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input type="tel" name="phoNo" class="form-control" placeholder="연락처">
+                        <input type="tel" id="phoNo" name="phoNo" class="form-control" placeholder="연락처">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-phone"></span>
@@ -124,7 +132,7 @@
                         </div>
 
                         <div class="col-4">
-                            <button type="button" class="btn btn-primary btn-block" onclick="doRegister()">Register</button>
+                            <button type="button" class="btn btn-primary btn-block" onclick="doRgstr()">Register</button>
                         </div>
                     </div>
                 </form>
