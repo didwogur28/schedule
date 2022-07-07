@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><!--Converted at: Thu Jan 29 13:11:14 KST 2015-->
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN""http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.schedule.SQL.login">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-    <!-- 회원기입 -->
-    <insert id="doRegister" parametertype="java.util.HashMap">
+<mapper namespace="com.schedule.login.dao.LoginMapper">
+
+    <!-- 아이디 중복체크 -->
+    <select id="idDupChk" parameterType="java.util.HashMap" resultType="int">
+        select count(*)
+          from sch.sch_usr
+         where usr_id = #{usrId}
+    </select>
+
+    <!-- 회원가입 -->
+    <insert id="doRegister" parameterType="java.util.HashMap">
         insert into sch.sch_usr (
                                   cpn_cd
                                  ,usr_id

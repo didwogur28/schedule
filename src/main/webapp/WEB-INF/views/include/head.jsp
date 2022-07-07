@@ -9,4 +9,6 @@
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- register -->
+    <link rel="stylesheet" href="dist/css/register.css">
 </head>

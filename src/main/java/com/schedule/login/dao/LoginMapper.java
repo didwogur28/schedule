@@ -1,8 +1,11 @@
-package com.schedule.login.service;
+package com.schedule.login.dao;
+
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Map;
 
-public interface LoginService {
+@Mapper
+public interface LoginMapper {
 
     public int idDupChk(Map<String, Object> modelMap) throws Exception;
 

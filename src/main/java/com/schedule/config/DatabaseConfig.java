@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +17,11 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import javax.sql.DataSource;
 
 @Configuration
+@ConfigurationProperties
 @EnableConfigurationProperties({DatabaseProperties.class})
-@MapperScan(basePackages = "com.schedule.SQL.*")
+@MapperScan(basePackages = "com.schedule.*.dao"
+            ,sqlSessionFactoryRef = "sqlSessionFactory"
+            ,sqlSessionTemplateRef = "sqlSessionTemplate")
 public class DatabaseConfig {
 
     @Autowired
@@ -43,7 +47,7 @@ public class DatabaseConfig {
         return sqlSessionFactoryBean.getObject();
     }
 
-    @Bean
+    @Bean(name = "sqlSessionTemplate")
     SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
         sqlSessionFactory.getConfiguration().setMapUnderscoreToCamelCase(true);
         return new SqlSessionTemplate(sqlSessionFactory);

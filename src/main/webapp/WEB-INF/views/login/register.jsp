@@ -9,42 +9,28 @@
 <head>
     <script>
 
-        function idDupChk () {
+        $(document).ready(function() {
 
-        }
+            $('#usrId').focusout(function() {
+                idChk($(this).val());
+            });
 
-        // 회원가입 빈 값 체크
-        function rgstrNullChk() {
+            $('#pwdNo').focusout(function() {
+                pwdNoChk($(this).val(), $("#pwdNoChk").val());
+            });
 
-            if("" == $.trim($("#usrId").val())){
-                alert("아아디를 입력해주세요.");
-                $("#usrId").focus();
-                return;
-            }
+            $('#pwdNoChk').focusout(function() {
+                pwdNoChk($(this).val(), $("#pwdNo").val());
+            });
 
-            if("" == $.trim($("#pwdNo").val())){
-                alert("패스워드를 입력해주세요.");
-                $("#pwdNo").focus();
-                return;
-            }
-
-            if("" == $.trim($("#usrNm").val())){
-                alert("이름을 입력해주세요.");
-                $("#usrNm").focus();
-                return;
-            }
-
-            if("" == $.trim($("#phoNo").val())){
-                alert("연락처를 입력해주세요.");
-                $("#phoNo").focus();
-                return;
-            }
-        }
+        });
 
         // 회원가입 처리
         function doRgstr() {
 
-            rgstrNullChk()
+            if (rgstrChk() == false) {
+                return false;
+            }
 
             var formData = $("#doRegister").serialize();
 
@@ -55,9 +41,11 @@
                 success: function (result) {
                     if(result != null) {
                         if(result.status == "OK") {
+                            alert("정상 가입되었습니다.")
+                            location.reload();
                             location.href = "/schedule/goLogin";
                         } else {
-                            alert("회원가입 실패 : " + result.msg);
+                            alert("가입을 다시 진행해주세요");
                             return false;
                         }
                     } else {
@@ -65,6 +53,123 @@
                     }
                 }
             })
+        }
+
+        // 아이디 체크
+        function idChk(arg) {
+
+            var deny_char = /^[a-z0-9]+$/;
+            var argLen = arg.length;
+
+            if (arg != null && arg != "") {
+
+                // 영어, 숫자만 입력검사
+                if(!deny_char.test(arg) || argLen < 5 || argLen > 20) {
+                    $("#idDupMsg").show()
+
+                    $("#idDupMsg").html("5~20자의 영문 소문자와 숫자만 사용 가능합니다.");
+                    $("#idDupMsg").css("color", "red");
+                    $("#idDupChk").val("N");
+                    return;
+                }
+
+                var formData = $("#doRegister").serialize();
+
+                $.ajax({
+                    data: formData,
+                    type: "POST",
+                    url: "/schedule/idDupChk",
+                    success: function (result) {
+                        if (result != null) {
+                            if (result.status == "OK") {
+
+                                $("#idDupMsg").show()
+
+                                if (result.dupYn == "N") {
+                                    $("#idDupMsg").html("사용가능한 아이디입니다.");
+                                    $("#idDupMsg").css("color", "green");
+                                    $("#idDupChk").val("Y");
+
+                                } else {
+                                    $("#idDupMsg").html("중복 된 아이디입니다.");
+                                    $("#idDupMsg").css("color", "red");
+                                    $("#idDupChk").val("N");
+                                }
+                            }
+                        }
+                    }
+                })
+
+            } else {
+
+                $("#idDupMsg").hide();
+                $("#idDupChk").val("N");
+                return;
+            }
+        }
+
+        // 비밀번호 일치체크
+        function pwdNoChk(arg1, arg2) {
+
+            if (arg1 != null && arg1 != "" && arg2 != null && arg2 != "") {
+
+                if (arg1 == arg2) {
+                    $("#pwChkMsg").hide();
+                    $("#pwChk").val("Y");
+                } else {
+                    $("#pwChkMsg").show();
+                    $("#pwChk").val("N");
+                }
+
+            } else {
+                $("#pwChkMsg").hide();
+                $("#pwChk").val("N");
+                return;
+            }
+        }
+
+        // 회원가입 필수값 체크
+        function rgstrChk() { 
+
+            if("" == $.trim($("#usrId").val())){
+                alert("아이디를 입력해주세요.");
+                $("#usrId").focus();
+                return false;
+            }
+
+            if($("#idDupChk").val() != "Y"){
+                alert("사용 가능한 아이디를 입력해주세요.");
+                return false;
+            }
+
+            if("" == $.trim($("#pwdNo").val())){
+                alert("패스워드를 입력해주세요.");
+                $("#pwdNo").focus();
+                return false;
+            }
+
+            if($("#pwChk").val() != "Y"){
+                alert("비밀번호가 일치하지 않습니다.");
+                return false;
+            }
+
+            if("" == $.trim($("#usrNm").val())){
+                alert("이름을 입력해주세요.");
+                $("#usrNm").focus();
+                return false;
+            }
+
+            if("" == $.trim($("#phoNo").val())){
+                alert("연락처를 입력해주세요.");
+                $("#phoNo").focus();
+                return false;
+            }
+
+            if(!$('#agreeTerms').is(':checked')) {
+                alert("관리자여부를 체크해주세요.");
+                return false;
+            }
+            return true;
         }
     </script>
 </head>
@@ -84,6 +189,8 @@
                             </div>
                         </div>
                     </div>
+                    <div id="idDupMsg" class="idDupMsg" value=""></div>
+                    <input type="hidden" id="idDupChk" value="" />
 
                     <div class="input-group mb-3">
                         <input type="password" id="pwdNo" name="pwdNo" class="form-control" placeholder="비밀번호">
@@ -102,6 +209,8 @@
                             </div>
                         </div>
                     </div>
+                    <div id="pwChkMsg" class="pwChkMsg">비밀번호가 일치하지 않습니다.</div>
+                    <input type="hidden" id="pwChk" value="" />
 
                     <div class="input-group mb-3">
                         <input type="text" id="usrNm" name="usrNm" class="form-control" placeholder="이름">
@@ -124,7 +233,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                                <input type="checkbox" id="agreeTerms" name="roles" value="ROLE_ADMIN">
                                 <label for="agreeTerms">
                                     나는 관리자 입니다
                                 </label>

@@ -28,7 +28,7 @@ spring:
     minIdle: 1
     maxWaitMillis: 1000
     configLocation: classpath:META-INF/mybatis/mybatis-config.xml
-    mapperLocations: classpath*:com/schedule/SQL/**/*.xml
+    mapperLocations: classpath:mappers/**/*.xml
     maxOpenPreparedStatements: 100
     testOnBorrow: true
     testWileIdle: true
