@@ -18,7 +18,7 @@
                 <p class="login-box-msg">Sign in to start your session</p>
 
                 <div class="input-group mb-3">
-                    <input type="text" name="userId" class="form-control" placeholder="아이디">
+                    <input type="text" name="usrId" class="form-control" placeholder="아이디">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-exclamation"></span>
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="input-group mb-3">
-                    <input type="password" name="userPw" class="form-control" placeholder="비밀번호">
+                    <input type="password" name="pwdNo" class="form-control" placeholder="비밀번호">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
