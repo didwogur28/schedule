@@ -9,5 +9,9 @@
 		<setting name="defaultExecutorType" value="REUSE" />
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
-	
+
+	<typeAliases>
+		<typeAlias alias="loginVO" type="com.schedule.login.vo.LoginVO" />
+	</typeAliases>
+
 </configuration>

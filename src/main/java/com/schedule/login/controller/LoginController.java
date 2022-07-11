@@ -94,7 +94,7 @@ public class LoginController {
         } catch (Exception e) {
 
             result.put("status", "FALE");
-            logger.error("회원기입 에러: "+e.toString());
+            logger.error("회원가입 에러: "+e.toString());
         }
 
         return result;

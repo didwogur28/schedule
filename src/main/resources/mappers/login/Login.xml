@@ -4,6 +4,14 @@
 
 <mapper namespace="com.schedule.login.dao.LoginMapper">
 
+    <resultMap id="result_login" type="login">
+        <result property="usrId" column="usr_id"/>
+        <result property="pwdNo" column="pwd_no"/>
+        <result property="usrNm" column="usr_nm"/>
+        <result property="phoNo" column="pho_no"/>
+        <result property="roles" column="roles"/>
+    </resultMap>
+
     <!-- 아이디 중복체크 -->
     <select id="idDupChk" parameterType="java.util.HashMap" resultType="int">
         select count(*)
@@ -35,4 +43,16 @@
                   ,now()
         )
     </insert>
+
+    <!-- 유저정보 조회 -->
+    <select id="getUsrInfo" parameterType="String" resultMap="result_login">
+        select usr_id
+              ,pwd_no
+              ,usr_nm
+              ,pho_no
+              ,roles
+          from sch.sch_usr
+         where usr_id = #{usrId}
+    </select>
+
 </mapper>

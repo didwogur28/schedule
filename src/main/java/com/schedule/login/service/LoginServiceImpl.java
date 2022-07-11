@@ -1,6 +1,7 @@
 package com.schedule.login.service;
 
 import com.schedule.login.dao.LoginMapper;
+import com.schedule.login.vo.LoginVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +21,10 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public void doRegister(Map<String, Object> modelMap) throws Exception {
         loginMapper.doRegister(modelMap);
+    }
+
+    @Override
+    public LoginVO getUsrInfo(String usrId) throws Exception {
+        return loginMapper.getUsrInfo(usrId);
     }
 }
