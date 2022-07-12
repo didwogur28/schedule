@@ -4,7 +4,7 @@
 
 <mapper namespace="com.schedule.login.dao.LoginMapper">
 
-    <resultMap id="result_login" type="login">
+    <resultMap id="result_login" type="loginVO">
         <result property="usrId" column="usr_id"/>
         <result property="pwdNo" column="pwd_no"/>
         <result property="usrNm" column="usr_nm"/>

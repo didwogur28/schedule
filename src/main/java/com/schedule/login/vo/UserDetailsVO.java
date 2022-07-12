@@ -18,6 +18,11 @@ public class UserDetailsVO implements UserDetails {
     private final Collection<? extends GrantedAuthority> authorities;
 
     @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    @Override
     public String getPassword() {
         return loginVO.getPwdNo();
     }
