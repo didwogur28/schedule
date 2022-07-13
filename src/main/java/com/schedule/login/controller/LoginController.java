@@ -31,7 +31,7 @@ public class LoginController {
 
     // 로그인 페이지 이동
     @RequestMapping(value = "/goLogin", method = RequestMethod.GET)
-    public String getLoginPage(HttpServletRequest request){
+    public String geLoginPage(HttpServletRequest request){
 
         String referer = request.getHeader(HttpHeaders.REFERER);
         if(referer == null)

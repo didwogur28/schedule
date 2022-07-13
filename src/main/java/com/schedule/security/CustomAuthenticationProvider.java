@@ -35,23 +35,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String usrId = token.getName();
         String pwdNo = (String) token.getCredentials();
 
-        LoginVO loginVO = new LoginVO();
-        Collection<SimpleGrantedAuthority> authorities = null;
-        UserDetailsVO userDetailsVO = null;
+        UserDetailsVO userDetailsVO = userDetailsVO = loginService.getUsrInfo(usrId);
 
-        try {
-
-            loginVO = loginService.getUsrInfo(usrId);
-            authorities = (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-
-            userDetailsVO = new UserDetailsVO(loginVO, authorities);
-
-            if (!passwordEncoder.matches(pwdNo, userDetailsVO.getPassword())) {
-                throw new BadCredentialsException(userDetailsVO.getUsrId() + "Invalid password");
-            }
-
-        } catch (Exception e) {
-            logger.error("authenticate 에러 : " + e.toString());
+        if (!passwordEncoder.matches(pwdNo, userDetailsVO.getPassword())) {
+            throw new BadCredentialsException(userDetailsVO.getUsrId() + "Invalid password");
         }
 
         return new UsernamePasswordAuthenticationToken(userDetailsVO, pwdNo, userDetailsVO.getAuthorities());

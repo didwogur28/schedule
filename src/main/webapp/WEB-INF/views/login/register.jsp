@@ -246,7 +246,7 @@
                     </div>
                 </form>
 
-                <a href="/schedule/login" class="text-center">I already have a membership</a>
+                <a href="/schedule/goLogin" class="text-center">I already have a membership</a>
             </div>
         </div>
     </div>

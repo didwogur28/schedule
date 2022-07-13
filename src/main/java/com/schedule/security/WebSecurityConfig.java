@@ -36,9 +36,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // 로그인하는 경우에 대해 설정함
                 .formLogin()
-                .loginPage("/login/login")            // 로그인 페이지를 제공하는 URL을 설정함
-                .successForwardUrl("/main/main")      // 로그인 성공 URL을 설정함
-                .failureForwardUrl("/login/login")    // 로그인 실패 URL을 설정함
+                .loginPage("/goLogin")             // 로그인 페이지를 제공하는 URL을 설정함
+                .successForwardUrl("/goMain")      // 로그인 성공 URL을 설정함
+                .failureForwardUrl("/goLogin")     // 로그인 실패 URL을 설정함
+                .successHandler(customLoginSuccessHandler())
+                .failureHandler(customLoginFailureHandler())
                 .permitAll()
                 .and()
                 .addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -61,6 +63,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CustomLoginSuccessHandler customLoginSuccessHandler() {
         return new CustomLoginSuccessHandler();
+    }
+
+    @Bean
+    public CustomLoginFailureHandler customLoginFailureHandler() {
+        return new CustomLoginFailureHandler();
     }
 
     @Bean

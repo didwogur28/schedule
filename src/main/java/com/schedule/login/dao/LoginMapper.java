@@ -12,5 +12,5 @@ public interface LoginMapper {
 
     public void doRegister(Map<String, Object> modelMap) throws Exception;
 
-    public LoginVO getUsrInfo(String usrId) throws Exception;
+    public LoginVO getUsrInfo(String usrId);
 }
