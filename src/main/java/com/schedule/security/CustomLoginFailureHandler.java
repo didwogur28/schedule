@@ -37,7 +37,7 @@ public class CustomLoginFailureHandler implements AuthenticationFailureHandler {
 		}
 		else {
 			request.setAttribute("errorMessage", "Invalid user or password");
-			RequestDispatcher rd = request.getRequestDispatcher("/goLogin");
+			RequestDispatcher rd = request.getRequestDispatcher("/schedule/goLogin");
             rd.forward(request, response);          
 		}
 
