@@ -3,6 +3,8 @@ package com.schedule.security;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
@@ -22,24 +24,13 @@ public class CustomLoginFailureHandler implements AuthenticationFailureHandler {
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
-		
-		boolean isAjax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
-		
-		if(isAjax) {
-			Map<String, Object> validationResult = new HashMap<String, Object>();
-			if(exception instanceof CustomBadCredentialsException)
-				validationResult = ((CustomBadCredentialsException)exception).getResultOnLogin();
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
-			PrintWriter out = response.getWriter();
-			out.print(new Gson().toJson(validationResult));
-			out.flush();
+
+		if(exception instanceof BadCredentialsException) {
+			request.setAttribute("LoginFailMessage", "아이디 또는 비밀번호가 일치하지 않습니다.");
 		}
-		else {
-			request.setAttribute("errorMessage", "Invalid user or password");
-			RequestDispatcher rd = request.getRequestDispatcher("/schedule/goLogin");
-            rd.forward(request, response);          
-		}
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/goLogin");
+		dispatcher.forward(request, response);
 
 	}
 

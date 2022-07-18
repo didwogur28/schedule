@@ -8,6 +8,12 @@
     <%@ include file="../include/plugin_js.jsp" %>
 
     <script>
+        $(document).ready(function() {
+            if('${LoginFailMessage}' != '') {
+                alert('${LoginFailMessage}');
+                window.self.location = "goLogin";
+            }
+        })
     </script>
 </head>
 

@@ -30,17 +30,8 @@ public class LoginController {
     private LoginService loginService;
 
     // 로그인 페이지 이동
-    @RequestMapping(value = "/goLogin", method = RequestMethod.GET)
-    public String geLoginPage(HttpServletRequest request){
-
-        String referer = request.getHeader(HttpHeaders.REFERER);
-        if(referer == null)
-            referer = "";
-
-        if(referer.indexOf("login") >= 0)
-            referer = "";
-
-        request.getSession().setAttribute("url_prior_login", referer);
+    @RequestMapping(value = "/goLogin")
+    public String goGetLogin(HttpServletRequest request){
 
         return "login/login";
     }

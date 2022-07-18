@@ -20,9 +20,9 @@ spring:
   datasource:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/schdb
-    username: ENC(EtkDutNBQdiXl6emQ8DWog==)
-    password: ENC(/g5RmeebB1keSoZe38Mu62Lvu1GWJ8d4)
-    dbName: ENC(asCNfBuIkMzKmWqpRUHZ8g==)
+    username: ENC(EwLJwXXe+Y1mNwg5OYqH5Q==)
+    password: ENC(jv8tOpq3foPPXuSceCpQksobsfWVkQkp)
+    dbName: ENC(L6CdzWndmtM8u7MhnCc7og==)
     maxTotal: 100
     maxIdle: 10
     minIdle: 1
@@ -34,6 +34,8 @@ spring:
     testWileIdle: true
     validationQuery: SELECT 1
     validationInterval: 30000
+  main:
+    allow-bean-definition-overriding: true
 
 logging:
   level:
