@@ -15,7 +15,7 @@ public class MainController {
     // 로그인 페이지 이동
     @RequestMapping(value = "/goMain", method = RequestMethod.GET)
     public String goMainPage(HttpServletRequest request){
-        
+
         return "main/main";
     }
 }

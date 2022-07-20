@@ -25,7 +25,9 @@ public class CustomLoginFailureHandler implements AuthenticationFailureHandler {
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
 
-		if(exception instanceof BadCredentialsException) {
+		if (exception instanceof BadCredentialsException) {
+			request.setAttribute("LoginFailMessage", "아이디 또는 비밀번호가 일치하지 않습니다.");
+		} else if (exception instanceof RuntimeException) {
 			request.setAttribute("LoginFailMessage", "아이디 또는 비밀번호가 일치하지 않습니다.");
 		}
 

@@ -37,6 +37,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         UserDetailsVO userDetailsVO = userDetailsVO = loginService.getUsrInfo(usrId);
 
+        if (userDetailsVO == null){
+            throw new NullPointerException(userDetailsVO.getUsrId() + "null");
+        }
         if (!passwordEncoder.matches(pwdNo, userDetailsVO.getPassword())) {
             throw new BadCredentialsException(userDetailsVO.getUsrId() + "Invalid password");
         }

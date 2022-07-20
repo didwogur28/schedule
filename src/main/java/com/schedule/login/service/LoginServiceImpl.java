@@ -29,13 +29,16 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public UserDetailsVO getUsrInfo(String usrId) {
-        LoginVO loginVO = loginMapper.getUsrInfo(usrId);
+
         UserDetailsVO userDetailsVO = null;
+        LoginVO loginVO = loginMapper.getUsrInfo(usrId);
 
         if(loginVO != null) {
             userDetailsVO = new UserDetailsVO(loginVO, Collections.singleton(new SimpleGrantedAuthority(loginVO.getRoles())));
+        } else {
+            userDetailsVO = null;
         }
-        
+
         return userDetailsVO;
     }
 }
