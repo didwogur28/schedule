@@ -11,6 +11,8 @@ public interface LoginService {
 
     public void doRegister(Map<String, Object> modelMap) throws Exception;
 
-    public UserDetailsVO getUsrInfo(String usrId);
+    public LoginVO getUsrInfo(String usrId);
+
+    public UserDetailsVO setUserDetailVO(LoginVO loginVO);
 
 }

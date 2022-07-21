@@ -27,7 +27,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException{
 
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
 
@@ -35,11 +35,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String usrId = token.getName();
         String pwdNo = (String) token.getCredentials();
 
-        UserDetailsVO userDetailsVO = userDetailsVO = loginService.getUsrInfo(usrId);
+        LoginVO loginVO = loginService.getUsrInfo(usrId);
 
-        if (userDetailsVO == null){
-            throw new NullPointerException(userDetailsVO.getUsrId() + "null");
+        if(loginVO == null) {
+            throw new BadCredentialsException("Login Error !!");
         }
+
+        UserDetailsVO userDetailsVO = loginService.setUserDetailVO(loginVO);
+
         if (!passwordEncoder.matches(pwdNo, userDetailsVO.getPassword())) {
             throw new BadCredentialsException(userDetailsVO.getUsrId() + "Invalid password");
         }
