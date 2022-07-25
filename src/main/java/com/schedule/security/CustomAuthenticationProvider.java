@@ -16,7 +16,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Collection;
+import java.util.*;
 
 @RequiredArgsConstructor
 public class CustomAuthenticationProvider implements AuthenticationProvider {
@@ -28,6 +28,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException{
+
+        Map<String, Object> userMap = new HashMap<String, Object>();
 
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
 
@@ -47,7 +49,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException(userDetailsVO.getUsrId() + "Invalid password");
         }
 
-        return new UsernamePasswordAuthenticationToken(userDetailsVO, pwdNo, userDetailsVO.getAuthorities());
+        UsernamePasswordAuthenticationToken upAuthentication = new UsernamePasswordAuthenticationToken(userDetailsVO, pwdNo, userDetailsVO.getAuthorities());
+        userMap.put("USER", userDetailsVO.getLoginVO());
+        userMap.put("ROLE", userDetailsVO.getRoles());
+
+        upAuthentication.setDetails(userMap);
+
+        return upAuthentication;
     }
 
     @Override

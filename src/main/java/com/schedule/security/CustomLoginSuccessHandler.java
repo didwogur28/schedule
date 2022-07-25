@@ -21,15 +21,11 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 
         HttpSession session = request.getSession();
 
-        Map<String, Object> authDetails = (Map<String, Object>) authentication.getDetails();
-        session.setAttribute("USER", authDetails.get("USER"));
+        Map<String, Object> authDetails = (Map<String, Object>)authentication.getDetails();
 
-//        String roles = loginVO.getRoles();
-//        if ("ROLE_ADMIN".equals(roles)) {
-//
-//            response.sendRedirect("/schedule/goMain");
-//        } else {
-//
-//        }
+        session.setAttribute("USER", authDetails.get("USER"));
+        session.setAttribute("ROLE", authDetails.get("ROLE"));
+
+        response.sendRedirect("/schedule/goMain");
     }
 }
