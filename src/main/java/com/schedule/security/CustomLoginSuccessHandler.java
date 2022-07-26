@@ -25,6 +25,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 
         session.setAttribute("USER", authDetails.get("USER"));
         session.setAttribute("ROLE", authDetails.get("ROLE"));
+        session.setAttribute("CPNCD", authDetails.get("CPNCD"));
 
         response.sendRedirect("/schedule/goMain");
     }

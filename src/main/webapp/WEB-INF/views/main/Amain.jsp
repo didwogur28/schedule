@@ -30,7 +30,35 @@
         })
 
         // 가입 url 메시지 전송
-        function sendSns() {
+        function sendSms() {
+
+            var cpnCd = '<%=(String)session.getAttribute("CPNCD")%>';
+            var smsMsg = "회원가입 하러가기\n https://www.naver.com?cpnCd="
+
+            cpnCd = encodeURIComponent(cpnCd)
+
+            $("input[name=smsMsg]").val(smsMsg);
+            $("input[name=cpnCd]").val(cpnCd);
+
+            var formData = $("#sendSns").serialize();
+
+            $.ajax({
+                data: formData,
+                type: "POST",
+                url: "/schedule/main/sendSms",
+                success: function (result) {
+                    if (result != null) {
+                        if (result.status == "OK") {
+
+                            alert('SMS 전송 완료');
+                        } else {
+                            alert("SMS 전송에 실패했습니다.")
+                        }
+                    }
+
+                    location.reload();
+                }
+            })
 
         }
     </script>
@@ -52,7 +80,10 @@
                         <div class="card">
                             <div class="card-body register-card-body">
                                 <p class="login-box-msg">Register a new membership</p>
-                                <form id="doRegister" name="doRegister" method="POST">
+                                <form id="sendSns" name="sendSns">
+                                    <input type="hidden" id="smsMsg" name="smsMsg" value="">
+                                    <input type="hidden" id="cpnCd" name="cpnCd" value="">
+
                                     <div class="input-group mb-3">
                                         <input type="tel" id="phoNo" name="phoNo" class="form-control" placeholder="연락처">
                                         <div class="input-group-append">
@@ -63,7 +94,7 @@
                                     </div>
 
                                     <div class="row" style="float: right" >
-                                        <button type="button" class="btn btn-primary" style="margin-right:5px;" onclick="sendSns()">SEND</button>
+                                        <button type="button" class="btn btn-primary" style="margin-right:5px;" onclick="sendSms()">SEND</button>
                                     </div>
                                 </form>
                             </div>

@@ -5,6 +5,7 @@
 <mapper namespace="com.schedule.login.dao.LoginMapper">
 
     <resultMap id="result_login" type="loginVO">
+        <result property="cpnCd" column="cpn_cd"/>
         <result property="usrId" column="usr_id"/>
         <result property="pwdNo" column="pwd_no"/>
         <result property="usrNm" column="usr_nm"/>
@@ -46,7 +47,8 @@
 
     <!-- 유저정보 조회 -->
     <select id="getUsrInfo" parameterType="String" resultMap="result_login">
-        select usr_id
+        select cpn_cd
+              ,usr_id
               ,pwd_no
               ,usr_nm
               ,pho_no

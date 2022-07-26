@@ -20,9 +20,9 @@ spring:
   datasource:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/schdb
-    username: ENC(EwLJwXXe+Y1mNwg5OYqH5Q==)
-    password: ENC(jv8tOpq3foPPXuSceCpQksobsfWVkQkp)
-    dbName: ENC(L6CdzWndmtM8u7MhnCc7og==)
+    username: ENC(2CYQXI2pDnUEupM5lLDL7A==)
+    password: ENC(AdCzoyPAfz82xgu/Ct/Z3DufdZDvAi0j)
+    dbName: ENC(Wm0S6bqMmRBLvGyv47SDmg==)
     maxTotal: 100
     maxIdle: 10
     minIdle: 1
@@ -71,3 +71,9 @@ logging:
       common.RfContextAware: DEBUG
     biz.refine: WARN
     log4jdbc.debug : WARN
+
+sms:
+  info:
+    sndNo: ENC(A0I2b9JOXgQS8YZUOKeoqdf3Ym6loQMB)
+    apiKey: ENC(yEBDuSyp/bv9gm7BmUfYYa3PNJTLHwOnt33OPTs0MIs=)
+    secretKey: ENC(3Dpb8m3XTxbdFK8X86dhiHOe2kEzSnLRiNG2FsG3WwF4xICBHzJG9FV7RcIdvg3w)

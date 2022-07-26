@@ -7,6 +7,7 @@ import java.util.Collection;
 
 public class LoginVO implements java.io.Serializable {
 
+    private String cpnCd;               // 회사코드
     private String usrId;				// 사용자아이디
     private String usrNm;				// 사용자명
     private String pwdNo;				// 비밀번호
@@ -14,6 +15,14 @@ public class LoginVO implements java.io.Serializable {
     private String roles;               // 역할
 
     private Boolean isEnable = true;
+
+    public String getCpnCd() {
+        return cpnCd;
+    }
+
+    public void setCpnCd(String cpnCd) {
+        this.cpnCd = cpnCd;
+    }
 
     public String getUsrId() {
         return usrId;
@@ -66,7 +75,8 @@ public class LoginVO implements java.io.Serializable {
     @Override
     public String toString() {
         return "LoginVO{" +
-                "usrId='" + usrId + '\'' +
+                "cpnCd='" + cpnCd + '\'' +
+                ", usrId='" + usrId + '\'' +
                 ", usrNm='" + usrNm + '\'' +
                 ", pwdNo='" + pwdNo + '\'' +
                 ", phoNo='" + phoNo + '\'' +

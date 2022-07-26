@@ -50,8 +50,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }
 
         UsernamePasswordAuthenticationToken upAuthentication = new UsernamePasswordAuthenticationToken(userDetailsVO, pwdNo, userDetailsVO.getAuthorities());
+
         userMap.put("USER", userDetailsVO.getLoginVO());
         userMap.put("ROLE", userDetailsVO.getRoles());
+        userMap.put("CPNCD", loginVO.getCpnCd());
 
         upAuthentication.setDetails(userMap);
 

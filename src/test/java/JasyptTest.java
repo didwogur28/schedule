@@ -15,11 +15,17 @@ public class JasyptTest {
         String encId = encryptor.encrypt("sch");
         String encPassword = encryptor.encrypt("sch1234!");
         String dbName = encryptor.encrypt("schdb");
+        String sndNo = encryptor.encrypt("01094648026");
+        String apiKey = encryptor.encrypt("NCSTLA18CAPLYPQ0");
+        String secretKey = encryptor.encrypt("B3XCQCKQIBHHJHOGW8GIP4YLOEJF5MTV");
 
 
         System.out.println("ID : " + encId);
         System.out.println("PASSWORD : " + encPassword);
         System.out.println("DBNAME : " + dbName);
+        System.out.println("sndNo : " + sndNo);
+        System.out.println("apiKey : " + apiKey);
+        System.out.println("secretKey : " + secretKey);
 
     }
 
