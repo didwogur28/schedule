@@ -33,7 +33,9 @@
                                  ,ins_id
                                  ,ins_dttm
         ) values (
-                   lpad(nextval('cpn_seq')::varchar, 3, '0')
+                   (case when #{cpnCd} is null then lpad(nextval('cpn_seq')::varchar, 3, '0')
+                         else #{cpnCd}
+                     end)
                   ,#{usrId}
                   ,#{pwdNo}
                   ,#{usrNm}
@@ -57,4 +59,18 @@
          where usr_id = #{usrId}
     </select>
 
+    <!-- 임시 유저 핸드폰번호 조회 -->
+    <select id="getPhoNo" parameterType="java.util.HashMap" resultType="String">
+        select pho_no as phoNo
+          from sch.sch_usr_tmp
+         where seq = #{seq}
+           and cpn_cd = #{cpnCd}
+    </select>
+
+    <!-- 임시 유저 정보 삭제 -->
+    <delete id="delTmpInfo" parameterType="java.util.HashMap">
+        delete from sch.sch_usr_tmp
+        where seq = #{seq}
+          and cpn_cd = #{cpnCd}
+    </delete>
 </mapper>

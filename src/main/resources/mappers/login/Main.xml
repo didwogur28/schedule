@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Thu Jan 29 13:11:14 KST 2015-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.schedule.main.dao.MainMapper">
+
+    <!-- 임시 유저 MAX 순번 조회-->
+    <select id="getMaxSeq" parameterType="java.util.HashMap" resultType="String">
+        select lpad((coalesce(max(seq), '0')::numeric + 1)::varchar, 3, '0')
+          from sch.sch_usr_tmp
+         where cpn_cd = #{cpnCd}
+    </select>
+
+    <!-- 임시 유저 가입 -->
+    <insert id="doRegisterTmp" parameterType="java.util.HashMap" keyColumn="seq" keyProperty="seq">
+        insert into sch.sch_usr_tmp (
+                                      seq
+                                     ,cpn_cd
+                                     ,pho_no
+                                     ,ins_id
+                                     ,ins_dttm
+        ) values (
+                   #{maxSeq}
+                  ,#{cpnCd}
+                  ,#{phoNo}
+                  ,'YJH_TMP'
+                  ,now()
+        )
+    </insert>
+</mapper>

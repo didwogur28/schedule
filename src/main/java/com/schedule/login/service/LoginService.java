@@ -15,4 +15,8 @@ public interface LoginService {
 
     public UserDetailsVO setUserDetailVO(LoginVO loginVO);
 
+    public String getPhoNo(Map<String, Object> modelMap) throws Exception;
+
+    public void delTmpInfo(Map<String, Object> modelMap) throws Exception;
+
 }

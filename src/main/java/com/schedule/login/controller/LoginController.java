@@ -34,9 +34,26 @@ public class LoginController {
 
     // 회원가입 페이지 이동
     @RequestMapping(value = "/goRegister", method = RequestMethod.GET)
-    public String goRegister() {
+    public String goRegister(@RequestParam(value="cpnCd", required=false) String cpnCd,
+                             @RequestParam(value="seq", required=false) String seq,
+                             Map<String, Object> modelMap) throws Exception {
 
-        return "registerAd";
+        modelMap.put("cpnCd", cpnCd);
+        modelMap.put("seq", seq);
+
+        try {
+
+            // 유저 회원가입
+            if (cpnCd != null && seq != null) {
+                String phoNo = loginService.getPhoNo(modelMap);
+                modelMap.put("phoNo", phoNo);
+            }
+
+        } catch (Exception e) {
+            logger.error("휴대폰 번호 조회 에러 : " + e.toString());
+        }
+
+        return "login/register";
     }
 
 
@@ -73,14 +90,20 @@ public class LoginController {
     @ResponseBody
     public Map<String, Object> doRegister(@RequestParam Map <String, Object> modelMap) throws Exception {
 
+        Map<String, Object> result = new HashMap<String, Object>();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         modelMap.put("pwdNo", (passwordEncoder.encode((CharSequence) modelMap.get("pwdNo"))));
 
-        Map<String, Object> result = new HashMap<String, Object>();
         try {
 
+            // 임시 유저 테이블 정보 삭제
+            if(modelMap.get("cpnCd") != null) {
+                loginService.delTmpInfo(modelMap);
+            }
+
             loginService.doRegister(modelMap);
+
             result.put("status", "OK");
 
         } catch (Exception e) {

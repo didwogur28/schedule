@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -181,6 +183,9 @@
                 <p class="login-box-msg">Register a new membership</p>
 
                 <form id="doRegister" name="doRegister" method="POST">
+                    <input type="hidden" id="cpnCd" name="cpnCd" value="${cpnCd}">
+                    <input type="hidden" id="seq" name="seq" value="${seq}">
+
                     <div class="input-group mb-3">
                         <input type="text" id="usrId" name="usrId" class="form-control" placeholder="아이디">
                         <div class="input-group-append">
@@ -222,7 +227,7 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input type="tel" id="phoNo" name="phoNo" class="form-control" placeholder="연락처">
+                        <input type="tel" id="phoNo" name="phoNo" class="form-control" placeholder="연락처" value="${phoNo}" <c:if test="${phoNo ne null}">disabled</c:if>>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-phone"></span>
@@ -233,10 +238,20 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" id="agreeTerms" name="roles" value="ROLE_ADMIN">
-                                <label for="agreeTerms">
-                                    나는 관리자 입니다
-                                </label>
+                                <c:choose>
+                                    <c:when test="${cpnCd ne null}">
+                                        <input type="checkbox" id="agreeTerms" name="roles" value="ROLE_USER">
+                                        <label for="agreeTerms">
+                                            유저 입니다.
+                                        </label>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="checkbox" id="agreeTerms" name="roles" value="ROLE_ADMIN">
+                                        <label for="agreeTerms">
+                                            관리자 입니다.
+                                        </label>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
 

@@ -38,4 +38,14 @@ public class LoginServiceImpl implements LoginService {
 
         return userDetailsVO;
     }
+
+    @Override
+    public String getPhoNo(Map<String, Object> modelMap) throws Exception {
+        return loginMapper.getPhoNo(modelMap);
+    }
+
+    @Override
+    public void delTmpInfo(Map<String, Object> modelMap) throws Exception {
+        loginMapper.delTmpInfo(modelMap);
+    }
 }

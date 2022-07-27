@@ -13,4 +13,8 @@ public interface LoginMapper {
     public void doRegister(Map<String, Object> modelMap) throws Exception;
 
     public LoginVO getUsrInfo(String usrId);
+
+    public String getPhoNo(Map<String, Object> modelMap) throws Exception;
+
+    public void delTmpInfo(Map<String, Object> modelMap) throws Exception;
 }

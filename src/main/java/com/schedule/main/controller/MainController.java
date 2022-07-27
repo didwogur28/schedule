@@ -1,11 +1,13 @@
 package com.schedule.main.controller;
 
 import com.schedule.login.controller.LoginController;
+import com.schedule.main.service.MainService;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Controller;
@@ -36,6 +38,9 @@ public class MainController {
     @Value("${sms.info.secretKey}")
     private String secretKey;
 
+    @Autowired
+    private MainService mainService;
+
     // 관리자 페이지 이동
     @RequestMapping(value = "/goMain", method = RequestMethod.GET)
     public String goMainPage(HttpSession session) {
@@ -58,22 +63,25 @@ public class MainController {
 
         try {
 
-            smsMsg = (String) modelMap.get("smsMsg") + URLEncoder.encode(String.valueOf(modelMap.get("cpnCd")), StandardCharsets.UTF_8);
+            String maxSeq = mainService.getMaxSeq(modelMap);
+            modelMap.put("maxSeq", maxSeq);
 
-            System.out.println("smsMsg : " + smsMsg);
+            mainService.doRegisterTmp(modelMap);
 
-//            String api_key = apiKey;              //사이트에서 발급 받은 API KEY
-//            String api_secret = secretKey;        //사이트에서 발급 받은 API SECRET KEY
-//
-//            Message coolsms = new Message(api_key, api_secret);
-//
-//            params.put("to", (String) modelMap.get("phoNo"));
-//            params.put("from", sndNo);          //사전에 사이트에서 번호를 인증하고 등록하여야 함
-//            params.put("type", "SMS");
-//            params.put("text", smsMsg);     //메시지 내용
-//            params.put("app_version", "test app 1.2");
-//
-//            JSONObject obj = (JSONObject) coolsms.send(params);
+            smsMsg = (String) modelMap.get("smsMsg") + "cpnCd=" + modelMap.get("cpnCd") + "&seq=" + maxSeq;
+
+            String api_key = apiKey;              //사이트에서 발급 받은 API KEY
+            String api_secret = secretKey;        //사이트에서 발급 받은 API SECRET KEY
+
+            Message coolsms = new Message(api_key, api_secret);
+
+            params.put("to", (String) modelMap.get("phoNo"));
+            params.put("from", sndNo);          //사전에 사이트에서 번호를 인증하고 등록하여야 함
+            params.put("type", "SMS");
+            params.put("text", smsMsg);     //메시지 내용
+            params.put("app_version", "test app 1.2");
+
+            JSONObject obj = (JSONObject) coolsms.send(params);
 
             result.put("status", "OK");
 

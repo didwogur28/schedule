@@ -33,9 +33,7 @@
         function sendSms() {
 
             var cpnCd = '<%=(String)session.getAttribute("CPNCD")%>';
-            var smsMsg = "회원가입 하러가기\n https://www.naver.com?cpnCd="
-
-            cpnCd = encodeURIComponent(cpnCd)
+            var smsMsg = "회원가입 하러가기\n https://www.naver.com?"
 
             $("input[name=smsMsg]").val(smsMsg);
             $("input[name=cpnCd]").val(cpnCd);
@@ -59,7 +57,6 @@
                     location.reload();
                 }
             })
-
         }
     </script>
 </head>
