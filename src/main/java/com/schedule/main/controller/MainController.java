@@ -1,9 +1,7 @@
 package com.schedule.main.controller;
 
-import com.schedule.login.controller.LoginController;
 import com.schedule.main.service.MainService;
 import net.nurigo.java_sdk.api.Message;
-import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,9 +41,9 @@ public class MainController {
     public String goMainPage(HttpSession session) {
 
         if("ROLE_ADMIN".equals(session.getAttribute("ROLE"))){
-            return "main/Amain";
+            return "main/mainAd";
         } else {
-            return "main/Emain";
+            return "main/mainEm";
         }
     }
 

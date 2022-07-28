@@ -7,8 +7,10 @@
     <%@ include file="../include/head.jsp" %>
     <%@ include file="../include/plugin_js.jsp" %>
 
-    <script>
+    <script type="text/javascript">
+
         $(document).ready(function() {
+
             if('${LoginFailMessage}' != '') {
                 alert('${LoginFailMessage}');
                 window.self.location = "goLogin";
@@ -121,9 +123,6 @@
                         </div>
                     </div>
                 </form>
-                <p class="mb-1">
-                    <a href="#">I forgot my password</a>
-                </p>
 
                 <p class="mb-0">
                     <a href="/schedule/goRegister" class="text-center">Register a new membership</a>

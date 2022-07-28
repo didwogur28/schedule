@@ -9,7 +9,10 @@
 <%@ include file="../include/plugin_js.jsp" %>
 
 <head>
-    <script>
+    <script type="text/javascript">
+
+        // URL 파라미터 숨기기
+        history.replaceState({}, null, location.pathname);
 
         $(document).ready(function() {
 
