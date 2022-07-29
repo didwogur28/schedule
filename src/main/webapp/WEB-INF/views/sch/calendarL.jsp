@@ -10,7 +10,7 @@
     <script>
 
         $(document).ready(function() {
-            calendarInit();
+            calendarInitL();
         });
 
     </script>

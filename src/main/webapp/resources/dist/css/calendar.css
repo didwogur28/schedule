@@ -1,3 +1,7 @@
+html,
+body {
+    height: 100%;
+}
 .sec_cal {
     width: 70%;
     margin: 40px auto;
@@ -18,12 +22,19 @@
     line-height: 1;
 }
 
+.sec_cal .cal_nav .weeks {
+    width: 600px;
+    text-align: center;
+    line-height: 1;
+}
+
 .cal-detail {
-    width: 200px;
+    width: 10%;
     height: 35px;
     position: relative;
-    top: 130px;
+    top: 100px;
     left: 350px;
+
 }
 
 .cal-list {
@@ -100,6 +111,7 @@
 }
 
 .sec_cal .cal_wrap .days {
+    width: 99.5%;
     display: flex;
     margin-bottom: 20px;
     padding-bottom: 20px;
@@ -110,7 +122,7 @@
     top: 368px;
 }
 
-.sec_cal .cal_wrap .day {
+.sec_cal .cal_wrap .dayM {
     display:flex;
     width: calc(99.5% / 7);
     height: 200px;
@@ -118,13 +130,59 @@
     color: #343a40;
     font-size: 12px;
     border-radius:5px;
-    cursor : pointer;
     border: 0.5px solid;
     margin:1px 1px 0 0;
     padding: 5px 0 0 5px;
 }
 
-.sec_cal .cal_wrap .week {
+.sec_cal .cal_wrap .dayW {
+
+    width: calc(95% / 7);
+    height: 1600px;
+    text-align: left;
+    color: #343a40;
+    font-size: 12px;
+    border-radius:5px;
+    border: 0.5px solid;
+    margin:1px 1px 0 0;
+    padding: 5px 0 0 5px;
+}
+
+.sec_cal .cal_wrap .dayT {
+    width: 80px;
+    height: 1600px;
+    text-align: left;
+    color: #343a40;
+    font-size: 12px;
+    border-radius:5px;
+    border: 0.5px solid;
+    margin:1px 1px 0 0;
+    padding: 5px 0 0 5px;
+}
+
+.sec_cal .cal_wrap .conW {
+    display:flex;
+    width: 230px;
+    height: 64.5px;
+    color: #343a40;
+    font-size: 12px;
+    padding: 40px 0 0 50px;
+    margin-top: 2px;
+    border-top: 0.2px solid #ddd;
+}
+
+.sec_cal .cal_wrap .conT {
+    display:flex;
+    width: 70px;
+    height: 64.5px;
+    text-align: right;
+    color: #343a40;
+    font-size: 15px;;
+    padding: 0 0 45px 47px;
+    margin-top: 2px;
+}
+
+.sec_cal .cal_wrap .weekM {
     display:flex;
     align-items: center;
     justify-content: center;
@@ -134,8 +192,35 @@
     font-size: 12px;
     text-align: center;
     border-radius:5px;
-    cursor : pointer;
     margin:2px 2px 0 0;
+}
+
+.sec_cal .cal_wrap .weekW {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(95% / 7);
+    text-align: left;
+    color: #343a40;
+    font-size: 12px;
+    text-align: center;
+    border-radius:5px;
+    margin:2px 2px 0 0;
+    font-size: 15px;
+}
+
+.sec_cal .cal_wrap .weekT {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    text-align: left;
+    color: #343a40;
+    font-size: 12px;
+    text-align: center;
+    border-radius:5px;
+    margin:2px 2px 0 0;
+    font-size: 15px;
 }
 
 .current.today {background: rgb(242 242 242);}
@@ -146,14 +231,26 @@
     height: 290px;
 }
 
-.sec_cal .cal_wrap .day:nth-child(7n -1) {
+.sec_cal .cal_wrap .dayM:nth-child(7n -1) {
     color: #007bff;
 }
 
-.sec_cal .cal_wrap .day:nth-child(7n) {
+.sec_cal .cal_wrap .dayM:nth-child(7n) {
     color: #dc3545;
 }
 
-.sec_cal .cal_wrap .day.disable {
+.sec_cal .cal_wrap .dayM.disable {
+    color: #ddd;
+}
+
+.sec_cal .cal_wrap .dayW:nth-child(8n -1) {
+    color: #007bff;
+}
+
+.sec_cal .cal_wrap .dayW:nth-child(8n) {
+    color: #dc3545;
+}
+
+.sec_cal .cal_wrap .dayW.disable {
     color: #ddd;
 }

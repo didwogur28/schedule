@@ -10,7 +10,8 @@
     <script>
 
         $(document).ready(function() {
-            calendarInit();
+
+            calendarInitW();
         });
 
     </script>
@@ -20,19 +21,20 @@
     <div class="sec_cal">
         <div class="cal_nav">
             <a href="#" class="nav-btn go-prev">prev</a>
-            <div class="year-month"></div>
+            <div class="weeks"></div>
             <a href="#" class="nav-btn go-next">next</a>
         </div>
 
         <div class="cal_wrap">
             <div class="days">
-                <div class="week">MON</div>
-                <div class="week">TUE</div>
-                <div class="week">WED</div>
-                <div class="week">THU</div>
-                <div class="week">FRI</div>
-                <div class="week">SAT</div>
-                <div class="week">SUN</div>
+                <div id="week0" class="weekT">시간</div>
+                <div id="week1" class="weekW"></div>
+                <div id="week2" class="weekW"></div>
+                <div id="week3" class="weekW"></div>
+                <div id="week4" class="weekW"></div>
+                <div id="week5" class="weekW"></div>
+                <div id="week6" class="weekW"></div>
+                <div id="week7" class="weekW"></div>
             </div>
             <div class="dates"></div>
         </div>

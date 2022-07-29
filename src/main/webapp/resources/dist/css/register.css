@@ -47,3 +47,10 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.close-btn {
+    float: right;
+    margin: 10px 20px 0 0;
+    font-size: 20px;
+    color: #ddd;
+}

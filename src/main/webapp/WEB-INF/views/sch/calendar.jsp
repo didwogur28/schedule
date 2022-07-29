@@ -95,7 +95,7 @@
     </script>
 
 
-<body>
+<body class="calBody">
     <div class="cal-detail">
         <ul class="cal-list">
             <li class="cal-list-tab"><a href="#" id="goWeek" class="tab">주간</a></li>
@@ -104,7 +104,7 @@
         </ul>
     </div>
 
-    <div id="calHtml"></div>
+    <div id="calHtml" class="claHtml"></div>
 </body>
 
 </html>

@@ -6,7 +6,7 @@
     전월 마지막일 날짜와 요일
 */
 
-function calendarInit() {
+function calendarInitL() {
 
   // 날짜 정보 가져오기
   var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
@@ -21,6 +21,7 @@ function calendarInit() {
   var currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
   var currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
   var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
+  var currentDay = thisMonth.getDay(); // 달력에서 표기하는 요일
 
   // kst 기준 현재시간
   // console.log(thisMonth);
@@ -30,10 +31,26 @@ function calendarInit() {
 
   function renderCalender(thisMonth) {
 
+    var arWeek = [0, 0, 0, 0, 0, 0, 0];
+
     // 렌더링을 위한 데이터 정리
     currentYear = thisMonth.getFullYear();
     currentMonth = thisMonth.getMonth();
     currentDate = thisMonth.getDate();
+    currentDay = thisMonth.getDay();
+
+    for (var index = currentDate; index < 7; index++) {
+
+      arWeek[index] = currentYear +"." + currentMonth + "." + currentDate;
+      currentDate++;
+
+      // 날짜가 현재 월의 마지막 일보다 크면 다음 월의 1일로 변경
+      if (currentDate > calendarMonthLastDate) {
+        weekYear = nextMonthStartDate.getFullYear();
+        weekMonth = nextMonthStartDate.getMonth() + 1;
+        weekDay = 1;
+      }
+    }
 
     // 이전 달의 마지막 날 날짜와 요일 구하기
     var startDay = new Date(currentYear, currentMonth, 0);

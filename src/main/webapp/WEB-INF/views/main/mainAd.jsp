@@ -72,11 +72,11 @@
                 <p class="login-box-msg">관리자 페이지 입니다.</p>
 
                 <div class="input-group mb-3" style="float: left">
-                    <button id="myBtn" class="btn btn-primary btn-block" onclick="openModal()">사원 등록</button>
+                    <button id="myBtn" class="btn btn-primary btn-block">사원 등록</button>
 
                     <div id="myModal" class="modal">
                         <!-- Modal content -->
-                        <div class="register-box" style="margin: 30% auto;">
+                        <div class="register-box" style="margin: 20% auto;">
                             <div class="card">
                                 <div class="card-body register-card-body">
                                     <p class="login-box-msg">Register a new membership</p>
