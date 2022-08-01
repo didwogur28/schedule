@@ -1,12 +1,17 @@
 package com.schedule.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 @Configuration
 public class ApplicationConfig extends WebMvcConfigurationSupport {
+
+	@Autowired
+	HandlerInterceptor interceptor;
 
 	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
@@ -41,6 +46,11 @@ public class ApplicationConfig extends WebMvcConfigurationSupport {
 		jsonView.setPrettyPrint(true);
 		registry.enableContentNegotiation(jsonView);
 		registry.jsp("/WEB-INF/views/", ".jsp");
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(interceptor).excludePathPatterns("/resources/**");
 	}
 
 }

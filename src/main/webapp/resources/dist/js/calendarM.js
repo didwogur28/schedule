@@ -45,26 +45,101 @@ function calendarInitM() {
     var nextDate = endDay.getDate();
     var nextDay = endDay.getDay();
 
-    // console.log(prevDate, prevDay, nextDate, nextDay);
+    // 해당 일 아이디 값(년_월_일) 구하기
+    var realMonth = currentMonth+1;
+    var prevMonth = realMonth-1;
+    var prevYear = currentYear;
+    if(realMonth == '1') {
+      prevMonth = '12'
+      prevYear = currentYear-1;
+    }
+    var nextMonth = realMonth + 1;
+    var nextYear = currentYear;
+    if(realMonth == '12') {
+      nextMonth = '1'
+      nextYear = currentYear + 1;
+    }
 
     // 현재 월 표기
     $('.year-month').text(currentYear + '.' + (currentMonth + 1));
 
     // 렌더링 html 요소 생성
+    $('.dates').html("");
     calendar = document.querySelector('.dates')
     calendar.innerHTML = '';
 
     // 지난달
     for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
-      calendar.innerHTML = calendar.innerHTML + '<div id="prev'+i+'" class="dayM prev disable">' + i + '</div>'
+      calendar.innerHTML = calendar.innerHTML + '<div id="'+prevYear+'_'+prevMonth+'_'+i+'" class="dayM prev disable">' + i + '</div>'
     }
     // 이번달
     for (var i = 1; i <= nextDate; i++) {
-      calendar.innerHTML = calendar.innerHTML + '<div id="cur'+i+'" class="dayM current">' + i + '</div>'
+      calendar.innerHTML = calendar.innerHTML + '<div id="'+currentYear+'_'+realMonth+'_'+i+'" class="dayM current">' + i + '</div>'
     }
     // 다음달
     for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
-      calendar.innerHTML = calendar.innerHTML + '<div id="next'+i+'" class="dayM next disable">' + i + '</div>'
+      calendar.innerHTML = calendar.innerHTML + '<div id="'+nextYear+'_'+nextMonth+'_'+i+'" class="dayM next disable">' + i + '</div>'
+    }
+
+    // 오늘 날짜 표기
+    if (today.getMonth() == currentMonth) {
+      todayDate = today.getDate();
+      var currentMonthDate = document.querySelectorAll('.dates .current');
+      currentMonthDate[todayDate -1].classList.add('today');
+    }
+  }
+
+  function renderCalender(thisMonth) {
+
+    // 렌더링을 위한 데이터 정리
+    currentYear = thisMonth.getFullYear();
+    currentMonth = thisMonth.getMonth();
+    currentDate = thisMonth.getDate();
+
+    // 이전 달의 마지막 날 날짜와 요일 구하기
+    var startDay = new Date(currentYear, currentMonth, 0);
+    var prevDate = startDay.getDate();
+    var prevDay = startDay.getDay();
+
+    // 이번 달의 마지막날 날짜와 요일 구하기
+    var endDay = new Date(currentYear, currentMonth + 1, 0);
+    var nextDate = endDay.getDate();
+    var nextDay = endDay.getDay();
+
+    // 해당 일 아이디 값(년_월_일) 구하기
+    var realMonth = currentMonth+1;
+    var prevMonth = realMonth-1;
+    var prevYear = currentYear;
+    if(realMonth == '1') {
+      prevMonth = '12'
+      prevYear = currentYear-1;
+    }
+    var nextMonth = realMonth + 1;
+    var nextYear = currentYear;
+    if(realMonth == '12') {
+      nextMonth = '1'
+      nextYear = currentYear + 1;
+    }
+
+    // 현재 월 표기
+    $('.year-month').text(currentYear + '.' + (currentMonth + 1));
+
+    // 렌더링 html 요소 생성
+    $('.dates').html("");
+    calendar = document.querySelector('.dates')
+    calendar.innerHTML = '';
+
+    // 지난달
+    for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
+      calendar.innerHTML = calendar.innerHTML + '<div id="'+prevYear+'_'+prevMonth+'_'+i+'" class="dayM prev disable">' + i + '</div>'
+    }
+    // 이번달
+    for (var i = 1; i <= nextDate; i++) {
+      calendar.innerHTML = calendar.innerHTML + '<div id="'+currentYear+'_'+realMonth+'_'+i+'" class="dayM current">' + i + '</div>'
+    }
+    // 다음달
+    for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
+      calendar.innerHTML = calendar.innerHTML + '<div id="'+nextYear+'_'+nextMonth+'_'+i+'" class="dayM next disable">' + i + '</div>'
     }
 
     // 오늘 날짜 표기

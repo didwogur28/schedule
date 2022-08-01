@@ -13,23 +13,33 @@
             calendarInitM();
 
             var modal = document.getElementById('myModal');
-            var btn = document.getElementById("cur12");
             var span = document.getElementsByClassName("close")[0];
+            var closeBtn = document.getElementsByClassName("close-a")[0];
 
-            btn.onclick = function() {
+            $('.current').on('click', function (){
+                var thisId = $(this).attr('id');
+
+                $('#calYear').val(thisId.split('_')[0])
+                $('#calMonth').val(thisId.split('_')[1])
+                $('#calday').val(thisId.split('_')[2])
+
                 modal.style.display = "block";
-            }
+            })
 
             span.onclick = function() {
                 modal.style.display = "none";
             }
 
-            // window.onclick = function(event) {
-            //     if (event.target == modal) {
-            //         modal.style.display = "none";
-            //     }
-            // }
-        });
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        })
 
     </script>
 </head>
@@ -56,25 +66,38 @@
 
             <div id="myModal" class="modal">
                 <!-- Modal content -->
-                <div class="register-box" style="margin: 20% 0 0 45%; position: fixed">
-                    <div class="card">
-                        <div>
-                            <a href="#" class="close-btn">X</a>
+                <div class="content-box" style="margin: 20% 0 0 37%; position: fixed">
+                    <div class="conBox">
+                        <div style="display: flex">
+                            <p class="conBox-msg">Register a new Contents</p>
+                            <a href="#" class="close-a">X</a>
                         </div>
-                        <div class="card-body register-card-body">
-                            <p class="register-box-msg">Register a new Contents</p>
+                        <div class="conBox-body">
+                            <br/>
                             <form id="saveContent" name="saveContent">
-                                <input type="hidden" id="cpnCd" name="cpnCd" value="">
+                                <input type="hidden" id="cpnCd" name="cpnCd" value="${cpnCd}">
 
                                 <div class="input-group mb-3">
-                                    <input type="text" id="content" name="content" class="form-control" placeholder="일정명"><br/>
+                                    <p class="conBox-menu1">일시</p>
+                                    <input type="text" id="stDay" name="stDay" class="conCal-input" value="">
+                                    <input type="text" id="stTime" name="stDay" class="conCal-input" value="">
+                                    <p class="conBox-h4">~</p>
+                                    <input type="text" id="edDay" name="stDay" class="conCal-input" value="">
+                                    <input type="text" id="edTime" name="stDay" class="conCal-input" value="">
                                 </div>
+
                                 <div class="input-group mb-3">
-                                    <input type="calendar" id="calendar" name="calendar" class="form-control">
+                                    <p class="conBox-menu2">일정명</p>
+                                    <select id="calendar" name="calendar" class="conBox-select">
+                                        <option>일정</option>
+                                    </select>
+                                    <input type="text" id="content" name="content" class="conBox-input" placeholder="일정명"><br/>
                                 </div>
 
                                 <div class="row" style="float: right" >
+                                    <button type="button" class="btn btn-primary" style="margin-right:5px;" onclick="saveContent()">일정상세 입력</button>
                                     <button type="button" class="btn btn-primary" style="margin-right:5px;" onclick="saveContent()">등록</button>
+                                    <button type="button" class="btn close-btn" style="margin-right:15px;" onclick="saveContent()">취소</button>
                                 </div>
                             </form>
                         </div>
