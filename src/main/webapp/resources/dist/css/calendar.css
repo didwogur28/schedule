@@ -122,15 +122,87 @@ body {
     top: 368px;
 }
 
-.sec_cal .cal_wrap .dayM {
-    display:flex;
-    width: calc(99.5% / 7);
-    height: 200px;
+.divWeek4 {
+    position: relative;
+    width: 99.5%;
+    height: calc(99.5% / 4);
+    border-bottom: 1px solid #ddd;
+}
+
+.divWeek5 {
+    position: relative;
+    width: 99.5%;
+    height: calc(99.5% / 5);
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 5px;
+}
+
+.divWeek6 {
+    position: relative;
+    width: 99.5%;
+    height: calc(99.5% / 6);
+    border-bottom: 1px solid #ddd;
+}
+
+div .tbWeek4,
+    .tbWeek5,
+    .tbWeek6 {
+    top: 0;
+    left: 0;
+    display: table;
+    width: 100%;
+    height: 99.9%;
+    position: absolute;
+    table-layout: fixed!important;
+    box-sizing: border-box;
+
+}
+
+.tbWeek4 tbody,
+.tbWeek5 tbody,
+.tbWeek6 tbody{
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.tbWeek4 tbody tr,
+.tbWeek5 tbody tr,
+.tbWeek6 tbody tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.tbWeek4 tbody tdWeek,
+.tbWeek5 tbody tdWeek,
+.tbWeek6 tbody tdWeek {
+    display: table-cell;
+    vertical-align: inherit;
+}
+
+div .tbWeekCnt4,
+    .tbWeekCnt5,
+    .tbWeekCnt6 {
+    width: 99%;
+    position: relative;
+}
+
+div .tbWeekCnt4 tbody tr,
+    .tbWeekCnt5 tbody tr,
+    .tbWeekCnt6 tbody tr {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.dayM {
+    width: 100%;
+    height: 50px;
     text-align: left;
     color: #343a40;
     font-size: 12px;
     border-radius:5px;
-    border: 0.5px solid;
     margin:1px 1px 0 0;
     padding: 5px 0 0 5px;
 }
@@ -138,6 +210,7 @@ body {
 .sec_cal .cal_wrap .dayW {
 
     width: calc(95% / 7);
+    height: 1600px;
     height: 1600px;
     text-align: left;
     color: #343a40;
@@ -184,15 +257,23 @@ body {
 
 .sec_cal .cal_wrap .weekM {
     display:flex;
-    align-items: center;
-    justify-content: center;
     width: calc(99.5% / 7);
     text-align: left;
     color: #343a40;
     font-size: 12px;
-    text-align: center;
     border-radius:5px;
     margin:2px 2px 0 0;
+}
+
+.sec_cal .cal_wrap .weekHoliday {
+    display:flex;
+    width: calc(99.5% / 7);
+    text-align: left;
+    color: #343a40;
+    font-size: 12px;
+    border-radius:5px;
+    margin:2px 2px 0 0;
+    color: #dc3545;
 }
 
 .sec_cal .cal_wrap .weekW {
@@ -228,14 +309,14 @@ body {
 .sec_cal .cal_wrap .dates {
     display: flex;
     flex-flow: wrap;
-    height: 290px;
-}
-
-.sec_cal .cal_wrap .dayM:nth-child(7n -1) {
-    color: #007bff;
+    height: 1000px;
 }
 
 .sec_cal .cal_wrap .dayM:nth-child(7n) {
+    color: #007bff;
+}
+
+.sec_cal .cal_wrap .dayM:nth-child(1) {
     color: #dc3545;
 }
 
