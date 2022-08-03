@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html>
 <html>
 <head>
@@ -31,22 +33,23 @@
                 location.href='/schedule/sch/goCalendar?cpnCd=${cpnCd}&tab=3';
             });
 
-            if("1" == tabNum){
-                clickTabWeek();
-            }else if("2" == tabNum){
-                clickTabMonth();
-            }else if("3" == tabNum){
-                clickTabList();
-            }
+            clickTabCal(tabNum);
         })
 
-        function clickTabWeek() {
+        function clickTabCal(tabNum) {
 
             $(".cal-list-tab a").removeClass("current");
-            $(".cal-list-tab #goWeek").addClass("current");
+
+            if(tabNum == 1) {
+                $(".cal-list-tab #goWeek").addClass("current");
+            } else if(tabNum == 2) {
+                $(".cal-list-tab #goMonth").addClass("current");
+            } else {
+                $(".cal-list-tab #goList").addClass("current");
+            }
 
             $.ajax({
-                url:"/schedule/sch/goCalendarW?cpnCd=${cpnCd}",
+                url:"/schedule/sch/goDetailCalendar?cpnCd=${cpnCd}&tabNum="+tabNum,
                 type: "GET",
                 dataType: "html",
                 success: function(html) {
@@ -58,40 +61,6 @@
             });
         }
 
-        function clickTabMonth() {
-
-            $(".cal-list-tab a").removeClass("current");
-            $(".cal-list-tab #goMonth").addClass("current");
-
-            $.ajax({
-                url:"/schedule/sch/goCalendarM?cpnCd=${cpnCd}",
-                type: "GET",
-                dataType: "html",
-                success: function(html) {
-                    if (html != null && !html.empty) {
-                        $("#calHtml").empty();
-                        $("#calHtml").html(html);
-                    }
-                }
-            });
-        }
-
-        function clickTabList() {
-            $(".cal-list-tab a").removeClass("current");
-            $(".cal-list-tab #goList").addClass("current");
-
-            $.ajax({
-                url:"/schedule/sch/goCalendarL?cpnCd=${cpnCd}",
-                type: "GET",
-                dataType: "html",
-                success: function(html) {
-                    if (html != null && !html.empty) {
-                        $("#calHtml").empty();
-                        $("#calHtml").html(html);
-                    }
-                }
-            });
-        }
     </script>
 
 

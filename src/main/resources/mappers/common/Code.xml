@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Thu Jan 29 13:11:14 KST 2015-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.schedule.common.dao.CommonMapper">
+
+    <!-- 해당 월 일정 관리 정보 조회-->
+    <select id="getCodeList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        select com_dtl_cd as "value"
+              ,com_dtl_nm as "text"
+          from sch.sch_com_cd
+         where com_cls_cd = #{comClsCd}
+    </select>
+
+</mapper>
