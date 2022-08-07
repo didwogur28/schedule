@@ -16,6 +16,7 @@
             setCalData();
         })
 
+        // 이번달 일정 조회
         function setCalData() {
 
             var date = "";
@@ -47,6 +48,7 @@
 
         }
 
+        // 이전, 다음 달 이동
         function chgMonth(arg) {
             var thisDay = $('.year-month').text();
             var date = "";
@@ -59,6 +61,31 @@
 
             calendarInitM(date);
         }
+
+        // 이번달 일정 등록
+        function saveMonthCnt() {
+
+            var formData = $("#saveContent").serialize();
+
+            $.ajax({
+                data: formData,
+                type: "POST",
+                url: "/schedule/sch/saveMonthCnt",
+                success: function (result) {
+                    if (result != null) {
+                        if (result.status == "OK") {
+                            alert("일정이 등록 되었습니다.");
+                            location.reload();
+
+                        } else {
+                            alert("일정이 등록되지 않았습니다.");
+                            return false;
+                        }
+                    }
+                }
+            })
+        }
+
     </script>
 </head>
 
@@ -100,14 +127,18 @@
                                     <input type="date" id="stDay" name="stDay" class="conCal-input" value="">
                                     <select id="stTm" name="stTm" class="conCal-select">
                                         <c:forEach items="${cntTmCodeList}" var="cntTmCodeList">
-                                            <option value="${cntTmCodeList.value}">${cntTmCodeList.text}</option>
+                                            <c:if test="${cntTmCodeList.value ne '04'}">
+                                                <option value="${cntTmCodeList.value}">${cntTmCodeList.text}</option>
+                                            </c:if>
                                         </c:forEach>
                                     </select>
                                     <p class="conBox-h4">~</p>
                                     <input type="date" id="edDay" name="edDay" class="conCal-input" value="">
                                     <select id="edTm" name="edTm" class="conCal-select">
                                         <c:forEach items="${cntTmCodeList}" var="cntTmCodeList">
-                                            <option value="${cntTmCodeList.value}">${cntTmCodeList.text}</option>
+                                            <c:if test="${cntTmCodeList.value ne '04'}">
+                                                <option value="${cntTmCodeList.value}">${cntTmCodeList.text}</option>
+                                            </c:if>
                                         </c:forEach>
                                     </select>
                                     <input type="checkbox" id="allTm" name="allTm" class="allChk" value="04">
@@ -126,9 +157,8 @@
                                 </div>
 
                                 <div class="row" style="float: right" >
-                                    <button type="button" class="btn btn-primary" style="margin-right:5px;" onclick="saveContent()">일정상세 입력</button>
-                                    <button type="button" class="btn btn-primary" style="margin-right:5px;" onclick="saveContent()">등록</button>
-                                    <button type="button" class="btn close-btn" style="margin-right:15px;" onclick="saveContent()">취소</button>
+                                    <button type="button" class="btn btn-primary" style="margin-right:5px;" onclick="saveMonthCnt()">등록</button>
+                                    <button type="button" class="btn close-btn" style="margin-right:15px;">취소</button>
                                 </div>
                             </form>
                         </div>

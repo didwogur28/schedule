@@ -6,17 +6,56 @@
 
     <!-- 해당 월 일정 관리 정보 조회-->
     <select id="getCntInfo" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        select cpn_cd as cpnCd
-              ,usr_id as usrId
-              ,con_cd as conCd
-              ,con_dtl as conDtl
-              ,st_dt as stDt
-              ,st_tm as stTm
-              ,ed_dt as edDt
-              ,ed_tm as edTm
+        select cpn_cd as "cpnCd"
+              ,usr_id as "usrId"
+              ,con_cd as "conCd"
+              ,con_dtl as "conDtl"
+              ,st_dt as "stDt"
+              ,concat(substring(st_dt,1,4),'-',substring(st_dt,5,2),'-',substring(st_dt,7)) as "stFullDt"
+              ,st_tm as "stTm"
+              ,ed_dt as "edDt"
+              ,ed_tm as "edTm"
           from sch.sch_cnt_ctrl
          where cpn_cd = #{cpnCd}
            and substring(st_dt,1 ,6) = #{date}
+         order by st_dt
     </select>
 
+    <!-- 이번 달 일정 등록 -->
+    <insert id="saveMonthCnt" parameterType="java.util.HashMap">
+        with upsert as (
+                        update sch.sch_cnt_ctrl
+                           set con_dtl = #{content}
+                              ,st_dt = replace(#{stDay}, '-','')
+                              ,st_tm = #{stTm}
+                              ,ed_dt = replace(#{edDay}, '-','')
+                              ,ed_tm = #{edTm}
+                              ,stat_cd = 'CNT100'
+                         where cpn_cd = #{cpnCd}
+                           and usr_id = #{usrId}
+                           and con_cd = #{conBox}
+                     returning 1
+        )
+        insert into sch.sch_cnt_ctrl (
+                                       cpn_cd
+                                      ,usr_id
+                                      ,con_cd
+                                      ,con_dtl
+                                      ,st_dt
+                                      ,st_tm
+                                      ,ed_dt
+                                      ,ed_tm
+                                      ,stat_cd
+        )
+        select #{cpnCd}::varchar
+              ,#{usrId}
+              ,#{conBox}::varchar
+              ,#{content}
+              ,replace(#{stDay}, '-','')
+              ,#{stTm}
+              ,replace(#{edDay}, '-','')
+              ,#{edTm}
+              ,'CNT100'
+         where not exists (select 1 from upsert)
+    </insert>
 </mapper>

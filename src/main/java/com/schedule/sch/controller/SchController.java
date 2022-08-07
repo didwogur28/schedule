@@ -68,7 +68,7 @@ public class SchController {
         }
     }
 
-    // 스케줄 페이지(월간) 이동
+    // 스케줄 페이지(월간) 데이터 조회
     @RequestMapping(value = "/sch/getCntInfo", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getCntInfo(@RequestParam(value="cpnCd", required=true) String cpnCd,
@@ -84,6 +84,30 @@ public class SchController {
             List<Map<String, Object>> getCntInfoList = schService.getCntInfo(modelMap);
 
             result.put("datas", getCntInfoList);
+            result.put("status", "OK");
+
+        } catch (Exception e){
+            result.put("status", "FALE");
+        }
+
+        return result;
+    }
+
+    // 스케줄 페이지(월간) 데이터 조회
+    @RequestMapping(value = "/sch/saveMonthCnt", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> saveMonthCnt(@RequestParam Map <String, Object> modelMap,
+                                            HttpSession session) throws Exception {
+
+        LoginVO loginVO = (LoginVO) session.getAttribute("USER");
+
+        modelMap.put("usrId", loginVO.getUsrId());
+
+        Map<String, Object> result = new HashMap<String, Object>();
+
+        try {
+            schService.saveMonthCnt(modelMap);
+
             result.put("status", "OK");
 
         } catch (Exception e){

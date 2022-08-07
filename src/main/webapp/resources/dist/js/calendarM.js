@@ -138,12 +138,14 @@ function calendarInitM(str, datas) {
   $('.dates').html("");
 
   for(var i=0; i<weeks.length; i++) {
+
     str = str + '<div id="' + currentMonth + '_' + i + '" class="divWeek' + weekCnt + '">'
     str = str + '<table class="tbWeek' + weekCnt + '">'
     str = str + '<tbody>'
     str = str + '<tr>'
 
-    for (var j = 0; j < weeks[i].length; j++) {
+
+    for(var j=0; j<weeks[i].length; j++) {
       str = str + '<td id="'+weeks[i][j]+'" class="setContent"></td>'
     }
 
@@ -153,17 +155,32 @@ function calendarInitM(str, datas) {
 
     str = str + '<table class="tbWeekCnt' + weekCnt + '">'
     str = str + '<tbody>'
-    str = str + '<tr>'
 
-    for (var j = 0; j < weeks[i].length; j++) {
+    str = str + '<tr>'
+    for(var j=0; j<weeks[i].length; j++) {
       if (weeks[i][j].split('-')[1] != currentMonth) {
         str = str + '<td class="dayM disable">' + Number(weeks[i][j].split('-')[2]) + '</td>'
       } else {
         str = str + '<td class="dayM current">' + Number(weeks[i][j].split('-')[2]) + '</td>'
       }
     }
-
     str = str + '</tr>'
+
+    for (var j=0; j<datas.length; j++) {
+      if(weeks[i].includes(datas[j].stFullDt)){
+        str = str +'<tr>'
+        for(var k=0; k<weeks[i].length; k++) {
+          if(datas[j].stFullDt == weeks[i][k]){
+            str = str + '<td class="conM">'
+            str = str + '<div class="">' + datas[j].usrId + '</div>'
+            str = str + '</td>'
+          } else {
+            str = str + '<td class="conM"></td>'
+          }
+        }
+        str = str +'</tr>'
+      }
+    }
     str = str + '</tbody>'
     str = str + '</table>'
     str = str + '</div>'
@@ -193,19 +210,44 @@ function modalInitM() {
     date = date.getHours();
 
     if(date>='0' && date < '8') {
-      $("#stTm").val("01").prop("selected", true);
-      $("#edTm").val("01").prop("selected", true);
-
-    } else if(date>='8' && date < '16') {
-      $("#stTm").val("02").prop("selected", true);
-      $("#edTm").val("02").prop("selected", true);
-
-    } else {
       $("#stTm").val("03").prop("selected", true);
       $("#edTm").val("03").prop("selected", true);
 
+    } else if(date>='8' && date < '16') {
+      $("#stTm").val("01").prop("selected", true);
+      $("#edTm").val("01").prop("selected", true);
+
+    } else {
+      $("#stTm").val("02").prop("selected", true);
+      $("#edTm").val("02").prop("selected", true);
     }
 
+    $("#allTm").change(function(){
+
+      if($("#allTm").is(":checked")){
+        $(".conCal-select").css("display", "none");
+
+        $("#stTm").val("04")
+        $("#edTm").val("04")
+
+      }else{
+        $(".conCal-select").css("display", "block");
+
+        if(date>='0' && date < '8') {
+          $("#stTm").val("03").prop("selected", true);
+          $("#edTm").val("03").prop("selected", true);
+
+        } else if(date>='8' && date < '16') {
+          $("#stTm").val("01").prop("selected", true);
+          $("#edTm").val("01").prop("selected", true);
+
+        } else {
+          $("#stTm").val("02").prop("selected", true);
+          $("#edTm").val("02").prop("selected", true);
+        }
+
+      }
+    });
   })
 
   span.onclick = function() {

@@ -6,7 +6,7 @@
 
     <!-- 해당 월 일정 관리 정보 조회-->
     <select id="getCodeList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        select com_dtl_cd as "value"
+        select com_dtl_cd::varchar as "value"
               ,com_dtl_nm as "text"
           from sch.sch_com_cd
          where com_cls_cd = #{comClsCd}

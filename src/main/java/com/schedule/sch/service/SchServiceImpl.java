@@ -18,4 +18,9 @@ public class SchServiceImpl implements SchService {
     public List<Map<String, Object>> getCntInfo(Map<String, Object> modelMap) throws Exception {
         return schMapper.getCntInfo(modelMap);
     }
+
+    @Override
+    public void saveMonthCnt(Map<String, Object> modelMap) throws Exception {
+        schMapper.saveMonthCnt(modelMap);
+    }
 }

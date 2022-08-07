@@ -9,4 +9,7 @@ import java.util.Map;
 public interface SchMapper {
 
     public List<Map<String, Object>> getCntInfo(Map<String, Object> modelMap) throws Exception;
+
+    public void saveMonthCnt(Map<String, Object> modelMap) throws Exception;
+
 }
