@@ -5,6 +5,7 @@
     금월 마지막일 날짜와 요일
     전월 마지막일 날짜와 요일
 */
+var weeks = [];
 function calendarInitM(str, datas) {
 
   var date = new Date(str);;
@@ -47,7 +48,6 @@ function calendarInitM(str, datas) {
   var nextDay = endDay.getDay();                                      // 기준일 다음 월 첫번째일의 요일
 
   var weekCnt = 0;
-  var weeks = [];
   var weekDays = [];
   var lastArr = "";
 
@@ -71,6 +71,7 @@ function calendarInitM(str, datas) {
   currentMonth = String(currentMonth).length === 1 ? '0' + currentMonth : currentMonth;
   nextMonth = String(nextMonth).length === 1 ? '0' + nextMonth : nextMonth;
 
+  weeks = [];
   for(var i=1; i<=weekCnt; i++) {
 
     switch(i) {
@@ -166,21 +167,26 @@ function calendarInitM(str, datas) {
     }
     str = str + '</tr>'
 
-    for (var j=0; j<datas.length; j++) {
-      if(weeks[i].includes(datas[j].stFullDt)){
-        str = str +'<tr>'
-        for(var k=0; k<weeks[i].length; k++) {
-          if(datas[j].stFullDt == weeks[i][k]){
-            str = str + '<td class="conM">'
-            str = str + '<div class="">' + datas[j].usrId + '</div>'
-            str = str + '</td>'
-          } else {
-            str = str + '<td class="conM"></td>'
-          }
-        }
-        str = str +'</tr>'
+    for(var j=0; k<weeks[j].length; j++) {
+      for (var k=0; k<datas.length; k++) {
+
       }
     }
+    // for (var j=0; j<datas.length; j++) {
+    //   if(weeks[i].includes(datas[j].stFullDt)){
+    //     str = str +'<tr>'
+    //     for(var k=0; k<weeks[i].length; k++) {
+    //       if(datas[j].stFullDt == weeks[i][k]){
+    //         str = str + '<td class="conM">'
+    //         str = str + '<div class="">' + datas[j].usrId + '</div>'
+    //         str = str + '</td>'
+    //       } else {
+    //         str = str + '<td class="conM"></td>'
+    //       }
+    //     }
+    //     str = str +'</tr>'
+    //   }
+    // }
     str = str + '</tbody>'
     str = str + '</table>'
     str = str + '</div>'

@@ -65,8 +65,11 @@
         // 이번달 일정 등록
         function saveMonthCnt() {
 
+            setThisWeek(weeks);
+
             var formData = $("#saveContent").serialize();
 
+            console.log(formData);
             $.ajax({
                 data: formData,
                 type: "POST",
@@ -84,6 +87,24 @@
                     }
                 }
             })
+        }
+
+        // 해당일정의 주차 세팅
+        function setThisWeek(arg){
+
+            var stDay = $("#stDay").val();
+            var edDay = $("#edDay").val();
+
+            for(var i=0; i<arg.length; i++) {
+
+                if(arg[i].includes(stDay)){
+                    $("#stWk").val(i+1);
+                }
+
+                if(arg[i].includes(edDay)){
+                    $("#edWk").val(i+1);
+                }
+            }
         }
 
     </script>
@@ -121,6 +142,8 @@
                             <br/>
                             <form id="saveContent" name="saveContent">
                                 <input type="hidden" id="cpnCd" name="cpnCd" value="${cpnCd}">
+                                <input type="hidden" id="stWk" name="stWk" value="">
+                                <input type="hidden" id="edWk" name="edWk" value="">
 
                                 <div class="input-group mb-3">
                                     <p class="conBox-menu1">일시</p>

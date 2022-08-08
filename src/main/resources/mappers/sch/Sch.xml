@@ -26,8 +26,10 @@
         with upsert as (
                         update sch.sch_cnt_ctrl
                            set con_dtl = #{content}
+                              ,st_wk = #{stWk}
                               ,st_dt = replace(#{stDay}, '-','')
                               ,st_tm = #{stTm}
+                              ,ed_wk = #{edWk}
                               ,ed_dt = replace(#{edDay}, '-','')
                               ,ed_tm = #{edTm}
                               ,stat_cd = 'CNT100'
@@ -41,8 +43,10 @@
                                       ,usr_id
                                       ,con_cd
                                       ,con_dtl
+                                      ,st_wk
                                       ,st_dt
                                       ,st_tm
+                                      ,ed_wk
                                       ,ed_dt
                                       ,ed_tm
                                       ,stat_cd
@@ -51,8 +55,10 @@
               ,#{usrId}
               ,#{conBox}::varchar
               ,#{content}
+              ,#{stWk}
               ,replace(#{stDay}, '-','')
               ,#{stTm}
+              ,#{edWk}
               ,replace(#{edDay}, '-','')
               ,#{edTm}
               ,'CNT100'
