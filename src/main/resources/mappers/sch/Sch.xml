@@ -28,8 +28,8 @@
                            set con_dtl = #{content}
                               ,st_wk = #{stWk}
                               ,st_dt = replace(#{stDay}, '-','')
-                              ,st_tm = #{stTm}
-                              ,ed_wk = #{edWk}
+                              ,st_tm = coalesce(#{stTm}, #{allTm})
+                              ,ed_wk = coalesce(#{edTm}, #{allTm})
                               ,ed_dt = replace(#{edDay}, '-','')
                               ,ed_tm = #{edTm}
                               ,stat_cd = 'CNT100'
@@ -57,10 +57,10 @@
               ,#{content}
               ,#{stWk}
               ,replace(#{stDay}, '-','')
-              ,#{stTm}
+              ,coalesce(#{stTm}, #{allTm})
               ,#{edWk}
               ,replace(#{edDay}, '-','')
-              ,#{edTm}
+              ,coalesce(#{edTm}, #{allTm})
               ,'CNT100'
          where not exists (select 1 from upsert)
     </insert>

@@ -65,6 +65,9 @@ function calendarInitM(str, datas) {
     }
   }
 
+  var weekChk = 0;
+  var dayChk = 0;
+
   firstDay = new Date(currentYear, currentMonth-1, 1).getDay();
 
   prevMonth = String(prevMonth).length === 1 ? '0' + prevMonth : prevMonth;
@@ -141,19 +144,6 @@ function calendarInitM(str, datas) {
   for(var i=0; i<weeks.length; i++) {
 
     str = str + '<div id="' + currentMonth + '_' + i + '" class="divWeek' + weekCnt + '">'
-    str = str + '<table class="tbWeek' + weekCnt + '">'
-    str = str + '<tbody>'
-    str = str + '<tr>'
-
-
-    for(var j=0; j<weeks[i].length; j++) {
-      str = str + '<td id="'+weeks[i][j]+'" class="setContent"></td>'
-    }
-
-    str = str + '</tr>'
-    str = str + '</tbody>'
-    str = str + '</table>'
-
     str = str + '<table class="tbWeekCnt' + weekCnt + '">'
     str = str + '<tbody>'
 
@@ -166,32 +156,11 @@ function calendarInitM(str, datas) {
       }
     }
     str = str + '</tr>'
-
-    for(var j=0; k<weeks[j].length; j++) {
-      for (var k=0; k<datas.length; k++) {
-
-      }
-    }
-    // for (var j=0; j<datas.length; j++) {
-    //   if(weeks[i].includes(datas[j].stFullDt)){
-    //     str = str +'<tr>'
-    //     for(var k=0; k<weeks[i].length; k++) {
-    //       if(datas[j].stFullDt == weeks[i][k]){
-    //         str = str + '<td class="conM">'
-    //         str = str + '<div class="">' + datas[j].usrId + '</div>'
-    //         str = str + '</td>'
-    //       } else {
-    //         str = str + '<td class="conM"></td>'
-    //       }
-    //     }
-    //     str = str +'</tr>'
-    //   }
-    // }
     str = str + '</tbody>'
     str = str + '</table>'
     str = str + '</div>'
   }
-  $('.year-month').text(currentYear + '.' + (currentMonth));
+  $('.year-month').text(currentYear + '.' + currentMonth);
   $('.dates').append(str);
 
   modalInitM();

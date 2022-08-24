@@ -196,6 +196,13 @@ div .tbWeekCnt4 tbody tr,
     height: 100%;
 }
 
+.divCnt {
+    width : 200px;
+    height: 130px;
+    margin-left: 10px;
+    float: left;
+}
+
 .dayM {
     width: 100%;
     height: 50px;
@@ -221,7 +228,6 @@ div .tbWeekCnt4 tbody tr,
 .sec_cal .cal_wrap .dayW {
 
     width: calc(95% / 7);
-    height: 1600px;
     height: 1600px;
     text-align: left;
     color: #343a40;
