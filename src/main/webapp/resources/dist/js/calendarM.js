@@ -6,7 +6,7 @@
     전월 마지막일 날짜와 요일
 */
 var weeks = [];
-function calendarInitM(str, datas) {
+function calendarInitM(str, datas, rows) {
 
   var date = new Date(str);;
 
@@ -144,6 +144,19 @@ function calendarInitM(str, datas) {
   for(var i=0; i<weeks.length; i++) {
 
     str = str + '<div id="' + currentMonth + '_' + i + '" class="divWeek' + weekCnt + '">'
+    str = str + '<table class="tbWeek' + weekCnt + '">'
+    str = str + '<tbody>'
+    str = str + '<tr>'
+
+
+    for(var j=0; j<weeks[i].length; j++) {
+      str = str + '<td id="'+weeks[i][j]+'" class="setContent"></td>'
+    }
+
+    str = str + '</tr>'
+    str = str + '</tbody>'
+    str = str + '</table>'
+
     str = str + '<table class="tbWeekCnt' + weekCnt + '">'
     str = str + '<tbody>'
 
@@ -156,10 +169,36 @@ function calendarInitM(str, datas) {
       }
     }
     str = str + '</tr>'
+
+    for(j=0; j<rows.length; j++) {
+
+      if(rows[j].stWk == (i+1)){
+        for(var j=0; j<rows[i].stMaxCnt; j++) {
+          str = str + '<tr></tr>'
+        }
+      }
+    }
+
+    // for (var j=0; j<datas.length; j++) {
+    //   if(weeks[i].includes(datas[j].stFullDt)){
+    //     str = str +'<tr>'
+    //     for(var k=0; k<weeks[i].length; k++) {
+    //       if(datas[j].stFullDt == weeks[i][k]){
+    //         str = str + '<td class="conM">'
+    //         str = str + '<div class="">' + datas[j].usrId + '</div>'
+    //         str = str + '</td>'
+    //       } else {
+    //         str = str + '<td class="conM"></td>'
+    //       }
+    //     }
+    //     str = str +'</tr>'
+    //   }
+    // }
     str = str + '</tbody>'
     str = str + '</table>'
     str = str + '</div>'
   }
+
   $('.year-month').text(currentYear + '.' + currentMonth);
   $('.dates').append(str);
 

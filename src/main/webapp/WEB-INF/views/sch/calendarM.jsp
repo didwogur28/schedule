@@ -36,8 +36,10 @@
                     if(result != null && !result.empty) {
 
                         if(result.status == "OK") {
-                            var datas = result.datas;
-                            calendarInitM(date, datas);
+                            var cntInfoList = result.cntInfoList;
+                            var weekRowList = result.weekRowList;
+
+                            calendarInitM(date, cntInfoList, weekRowList);
                         } else {
                             alert("월 달력 정보 조회에 실패했습니다.")
                             location.href = "/schedule/goMain";

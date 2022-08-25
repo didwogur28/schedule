@@ -7,5 +7,7 @@ public interface SchService {
 
     public List<Map<String, Object>> getCntInfo(Map<String, Object> modelMap) throws Exception;
 
+    public List<Map<String, Object>> getWeekRow(Map<String, Object> modelMap) throws Exception;
+
     public void saveMonthCnt(Map<String, Object> modelMap) throws Exception;
 }

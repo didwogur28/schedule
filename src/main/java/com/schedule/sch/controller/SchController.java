@@ -82,8 +82,11 @@ public class SchController {
 
         try {
             List<Map<String, Object>> getCntInfoList = schService.getCntInfo(modelMap);
+            List<Map<String, Object>> getWeekRowList = schService.getWeekRow(modelMap);
 
-            result.put("datas", getCntInfoList);
+            result.put("cntInfoList", getCntInfoList);
+            result.put("weekRowList", getWeekRowList);
+
             result.put("status", "OK");
 
         } catch (Exception e){
@@ -93,7 +96,7 @@ public class SchController {
         return result;
     }
 
-    // 스케줄 페이지(월간) 데이터 조회
+    // 이번 달 일정 등록
     @RequestMapping(value = "/sch/saveMonthCnt", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> saveMonthCnt(@RequestParam Map <String, Object> modelMap,
