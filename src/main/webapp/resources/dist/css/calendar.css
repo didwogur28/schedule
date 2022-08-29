@@ -197,10 +197,12 @@ div .tbWeekCnt4 tbody tr,
 }
 
 .divCnt {
-    width : 200px;
-    height: 130px;
     margin-left: 10px;
-    float: left;
+}
+
+.divCnt a {
+    font-size: 15px;
+    color: #7a8793;
 }
 
 .dayM {

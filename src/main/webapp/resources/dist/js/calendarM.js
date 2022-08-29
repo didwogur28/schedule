@@ -6,9 +6,9 @@
     전월 마지막일 날짜와 요일
 */
 var weeks = [];
-function calendarInitM(str, datas, rows) {
+function calendarInitM(str, datas) {
 
-  var date = new Date(str);;
+  var date = new Date(str);
 
   var currentYear = date.getFullYear();                               // 기준일 년도
   var currentMonth = date.getMonth()+1;                               // 기준일 월
@@ -170,14 +170,14 @@ function calendarInitM(str, datas, rows) {
     }
     str = str + '</tr>'
 
-    for(j=0; j<rows.length; j++) {
-
-      if(rows[j].stWk == (i+1)){
-        for(var j=0; j<rows[i].stMaxCnt; j++) {
-          str = str + '<tr></tr>'
-        }
-      }
-    }
+    // for(j=0; j<rows.length; j++) {
+    //
+    //   if(rows[j].stWk == (i+1)){
+    //     for(var j=0; j<rows[i].stMaxCnt; j++) {
+    //       str = str + '<tr></tr>'
+    //     }
+    //   }
+    // }
 
     // for (var j=0; j<datas.length; j++) {
     //   if(weeks[i].includes(datas[j].stFullDt)){
@@ -275,4 +275,56 @@ function modalInitM() {
   closeBtn.onclick = function() {
     modal.style.display = "none";
   }
+}
+
+
+function setCntInfo(datas) {
+
+  var parentTag = $("#dates");
+  var tdTag = parentTag.find('td');
+
+  var str = "";
+
+  for(var i=0; i<tdTag.length; i++) {
+
+    if(tdTag[i].className == 'setContent') {
+
+      for(var j=0; j<datas.length; j++) {
+        if(tdTag[i].id == datas[j].stFullDt) {
+
+          str = str + '<div class="divCnt">'
+          str = str + '<a href="#">' + datas[j].usrNm + " (" + datas[j].conDtl + ")" + '</a>'
+          str = str + '</div>'
+
+          if(datas[j].stFullDt != datas[j].edFullDt) {
+            datas[j].stFullDt = setNewDate(datas[j].stFullDt)
+          } else {
+            datas[j].stFullDt = datas[j].edFullDt
+          }
+        }
+      }
+
+      $('#'+tdTag[i].id).append(str);
+    }
+
+    str = "";
+  }
+
+}
+
+function setNewDate(arg) {
+
+  var newDay = new Date(arg.split("-")[0], arg.split("-")[1], arg.split("-")[2]);
+  var newYear = "";
+  var newMonth = "";
+  var newDate = "";
+
+  newDay.setDate(newDay.getDate()+1)
+
+  newYear = newDay.getFullYear();
+  newMonth = String(newDay.getMonth()).length === 1 ? '0' + newDay.getMonth() : newDay.getMonth();
+  newDate = String(newDay.getDate()).length === 1 ? '0' + newDay.getDate() : newDay.getDate();
+
+  return newYear+'-'+newMonth+'-'+newDate;
+
 }

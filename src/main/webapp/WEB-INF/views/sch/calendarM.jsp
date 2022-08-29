@@ -36,10 +36,11 @@
                     if(result != null && !result.empty) {
 
                         if(result.status == "OK") {
-                            var cntInfoList = result.cntInfoList;
-                            var weekRowList = result.weekRowList;
+                            var datas = result.cntInfoList;
 
-                            calendarInitM(date, cntInfoList, weekRowList);
+                            calendarInitM(date, datas);
+                            setCntInfo(datas);
+
                         } else {
                             alert("월 달력 정보 조회에 실패했습니다.")
                             location.href = "/schedule/goMain";
@@ -130,7 +131,7 @@
                 <div class="weekM">FRI</div>
                 <div class="weekM">SAT</div>
             </div>
-            <div class="dates"></div>
+            <div id="dates" class="dates"></div>
 
             <div id="myModal" class="modal">
                 <!-- Modal content -->

@@ -6,19 +6,22 @@
 
     <!-- 해당 월 일정 관리 정보 조회 -->
     <select id="getCntInfo" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        select cpn_cd as "cpnCd"
-              ,usr_id as "usrId"
-              ,con_cd as "conCd"
-              ,con_dtl as "conDtl"
-              ,st_dt as "stDt"
+        select cnt.cpn_cd as "cpnCd"
+              ,usr.usr_nm as "usrNm"
+              ,cnt.con_cd as "conCd"
+              ,cnt.con_dtl as "conDtl"
               ,concat(substring(st_dt,1,4),'-',substring(st_dt,5,2),'-',substring(st_dt,7)) as "stFullDt"
-              ,st_tm as "stTm"
-              ,ed_dt as "edDt"
-              ,ed_tm as "edTm"
-          from sch.sch_cnt_ctrl
-         where cpn_cd = #{cpnCd}
-           and substring(st_dt,1 ,6) = #{date}
-         order by st_dt
+              ,cnt.st_dt as "stDt"
+              ,cnt.st_tm as "stTm"
+              ,concat(substring(ed_dt,1,4),'-',substring(ed_dt,5,2),'-',substring(ed_dt,7)) as "edFullDt"
+              ,cnt.ed_tm as "edTm"
+          from sch.sch_cnt_ctrl cnt
+         inner join sch.sch_usr usr
+                 on usr.cpn_cd = cnt.cpn_cd
+                and usr.usr_id = cnt.usr_id
+         where cnt.cpn_cd = #{cpnCd}
+           and substring(cnt.st_dt,1 ,6) = #{date}
+         order by cnt.st_dt;
     </select>
 
     <!-- 해당 월 주별 Row 조회 -->
