@@ -82,10 +82,8 @@ public class SchController {
 
         try {
             List<Map<String, Object>> getCntInfoList = schService.getCntInfo(modelMap);
-            List<Map<String, Object>> getWeekRowList = schService.getWeekRow(modelMap);
 
             result.put("cntInfoList", getCntInfoList);
-            result.put("weekRowList", getWeekRowList);
 
             result.put("status", "OK");
 

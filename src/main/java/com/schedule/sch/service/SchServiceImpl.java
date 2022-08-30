@@ -20,11 +20,6 @@ public class SchServiceImpl implements SchService {
     }
 
     @Override
-    public List<Map<String, Object>> getWeekRow(Map<String, Object> modelMap) throws Exception {
-        return schMapper.getWeekRow(modelMap);
-    }
-
-    @Override
     public void saveMonthCnt(Map<String, Object> modelMap) throws Exception {
         schMapper.saveMonthCnt(modelMap);
     }

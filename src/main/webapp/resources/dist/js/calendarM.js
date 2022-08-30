@@ -169,31 +169,6 @@ function calendarInitM(str, datas) {
       }
     }
     str = str + '</tr>'
-
-    // for(j=0; j<rows.length; j++) {
-    //
-    //   if(rows[j].stWk == (i+1)){
-    //     for(var j=0; j<rows[i].stMaxCnt; j++) {
-    //       str = str + '<tr></tr>'
-    //     }
-    //   }
-    // }
-
-    // for (var j=0; j<datas.length; j++) {
-    //   if(weeks[i].includes(datas[j].stFullDt)){
-    //     str = str +'<tr>'
-    //     for(var k=0; k<weeks[i].length; k++) {
-    //       if(datas[j].stFullDt == weeks[i][k]){
-    //         str = str + '<td class="conM">'
-    //         str = str + '<div class="">' + datas[j].usrId + '</div>'
-    //         str = str + '</td>'
-    //       } else {
-    //         str = str + '<td class="conM"></td>'
-    //       }
-    //     }
-    //     str = str +'</tr>'
-    //   }
-    // }
     str = str + '</tbody>'
     str = str + '</table>'
     str = str + '</div>'
@@ -280,9 +255,9 @@ function modalInitM() {
 
 function setCntInfo(datas) {
 
+  var topVal = 30;
   var parentTag = $("#dates");
   var tdTag = parentTag.find('td');
-
   var str = "";
 
   for(var i=0; i<tdTag.length; i++) {
@@ -290,24 +265,45 @@ function setCntInfo(datas) {
     if(tdTag[i].className == 'setContent') {
 
       for(var j=0; j<datas.length; j++) {
+
         if(tdTag[i].id == datas[j].stFullDt) {
 
-          str = str + '<div class="divCnt">'
-          str = str + '<a href="#">' + datas[j].usrNm + " (" + datas[j].conDtl + ")" + '</a>'
+          if (datas[j].stDt != datas[j].edDt) {
+            str = str + '<div class="divCnts" style="top:'+topVal+'px">'
+
+            if(tdTag[i].id.replace(/-/gi, '') == datas[j].stDt) {
+              str = str + '<a href="#">' + datas[j].conDtl + " (" + datas[j].usrNm + ")" + '</a>'
+            } else {
+              str = str + '<a href="#"></a>'
+            }
+
+          } else {
+            str = str + '<div class="divCnt" style="top:'+topVal+'px">'
+
+            if(datas[j].stTm != '04') {
+              str = str + '<a href="#">' + datas[j].conDtl + " (" + datas[j].usrNm + ")" + " - "  + datas[j].stTmNm + '</a>'
+            } else {
+              str = str + '<a href="#">' + datas[j].conDtl + " (" + datas[j].usrNm + ")" + '</a>'
+            }
+
+          }
           str = str + '</div>'
+          str = str + '<br />'
 
           if(datas[j].stFullDt != datas[j].edFullDt) {
             datas[j].stFullDt = setNewDate(datas[j].stFullDt)
           } else {
             datas[j].stFullDt = datas[j].edFullDt
           }
+          topVal += 20;
+
         }
       }
-
       $('#'+tdTag[i].id).append(str);
     }
 
     str = "";
+    topVal = 30;
   }
 
 }
