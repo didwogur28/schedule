@@ -6,7 +6,9 @@
 
     <!-- 해당 월 일정 관리 정보 조회 -->
     <select id="getCntInfo" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        select cnt.cpn_cd as "cpnCd"
+        select cnt.seq as "seq"
+              ,cnt.cpn_cd as "cpnCd"
+              ,cnt.usr_id as "usrId"
               ,usr.usr_nm as "usrNm"
               ,cnt.con_cd as "conCd"
               ,cnt.con_dtl as "conDtl"
@@ -40,13 +42,12 @@
                               ,ed_dt = replace(#{edDay}, '-','')
                               ,ed_tm = coalesce(#{edTm}, #{allTm})
                               ,stat_cd = 'CNT100'
-                         where cpn_cd = #{cpnCd}
-                           and usr_id = #{usrId}
-                           and con_cd = #{conBox}
+                         where seq = #{seq}
                      returning 1
         )
         insert into sch.sch_cnt_ctrl (
-                                       cpn_cd
+                                       seq
+                                      ,cpn_cd
                                       ,usr_id
                                       ,con_cd
                                       ,con_dtl
@@ -56,7 +57,10 @@
                                       ,ed_tm
                                       ,stat_cd
         )
-        select #{cpnCd}::varchar
+        select
+              ,(select coalesce(max(seq), 0) + 1
+                  from sch.sch_cnt_ctrl)
+              ,#{cpnCd}::varchar
               ,#{usrId}
               ,#{conBox}::varchar
               ,#{content}

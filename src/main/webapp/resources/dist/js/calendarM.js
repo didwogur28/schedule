@@ -6,9 +6,9 @@
     전월 마지막일 날짜와 요일
 */
 var weeks = [];
-function calendarInitM(str, datas) {
+function calendarInitM(argDay, datas) {
 
-  var date = new Date(str);
+  var date = new Date(argDay);
 
   var currentYear = date.getFullYear();                               // 기준일 년도
   var currentMonth = date.getMonth()+1;                               // 기준일 월
@@ -180,6 +180,82 @@ function calendarInitM(str, datas) {
   modalInitM();
 }
 
+// 해당 월 일정 출력
+function setCntInfo(datas) {
+
+  var topVal = 30;
+  var parentTag = $("#dates");
+  var tdTag = parentTag.find('td');
+  var str = "";
+
+  for(var i=0; i<tdTag.length; i++) {
+
+    if(tdTag[i].className == 'setContent') {
+
+      for(var j=0; j<datas.length; j++) {
+
+        if(tdTag[i].id == datas[j].stFullDt) {
+
+          if (datas[j].stDt != datas[j].edDt) {
+            str = str + '<div class="divCnts" style="top:'+topVal+'px">'
+
+            if(tdTag[i].id.replace(/-/gi, '') == datas[j].stDt) {
+              str = str + '<a href="#" onclick="thisModal(\''+datas[j] +'\')">' + datas[j].conDtl + " (" + datas[j].usrNm + ")" + '</a>'
+            } else {
+              str = str + '<a href="#" onclick="thisModal(\''+datas[j]+'\')"></a>'
+            }
+
+          } else {
+            str = str + '<div class="divCnt" style="top:'+topVal+'px">'
+
+            if(datas[j].stTm != '04') {
+              str = str + '<a href="#" onclick="thisModal(\''+datas[j]+'\')"><label class="tmChk">●</label>' + " " + datas[j].conDtl + " (" + datas[j].usrNm + ")" + " - "  + datas[j].stTmNm + '</a>'
+            } else {
+              str = str + '<a href="#" onclick="thisModal(\''+datas[j]+'\')"><label class="tmChk">○</label>' + " " + datas[j].conDtl + " (" + datas[j].usrNm + ")" + '</a>'
+            }
+
+          }
+          str = str + '</div>'
+          str = str + '<br />'
+
+          if(datas[j].stFullDt != datas[j].edFullDt) {
+            datas[j].stFullDt = setNewDate(datas[j].stFullDt)
+          } else {
+            datas[j].stFullDt = datas[j].edFullDt
+          }
+          topVal += 20;
+
+        }
+      }
+      $('#'+tdTag[i].id).append(str);
+    }
+
+    str = "";
+    topVal = 30;
+  }
+}
+
+// 등록 되어있는 일정 시작일자 +1일 세팅
+function setNewDate(arg) {
+
+  arg = arg.replace(/-/gi, '.');  // 날짜 재 셋팅
+
+  var newDay = new Date(arg);
+  var newYear = "";
+  var newMonth = "";
+  var newDate = "";
+
+  newDay.setDate(newDay.getDate()+1);
+
+  newYear = newDay.getFullYear();
+  newMonth = String(newDay.getMonth()+1).length === 1 ? '0' + (newDay.getMonth()+1) : (newDay.getMonth()+1);
+  newDate = String(newDay.getDate()).length === 1 ? '0' + newDay.getDate() : newDay.getDate();
+
+  return newYear+'-'+newMonth+'-'+newDate;
+
+}
+
+// 일정 등록 모달 팝업 창
 function modalInitM() {
   var modal = document.getElementById('myModal');
   var span = document.getElementsByClassName("close")[0];
@@ -252,75 +328,14 @@ function modalInitM() {
   }
 }
 
+// 등록 일정 출력 모달 팝업 창
+function thisModal(datas) {
+  console.log(datas.stDt);
+  var modal = document.getElementById('myModal');
+  var span = document.getElementsByClassName("close")[0];
+  var closeA = document.getElementsByClassName("close-a")[0];
+  var closeBtn = document.getElementsByClassName("close-btn")[0];
 
-function setCntInfo(datas) {
-
-  var topVal = 30;
-  var parentTag = $("#dates");
-  var tdTag = parentTag.find('td');
-  var str = "";
-
-  for(var i=0; i<tdTag.length; i++) {
-
-    if(tdTag[i].className == 'setContent') {
-
-      for(var j=0; j<datas.length; j++) {
-
-        if(tdTag[i].id == datas[j].stFullDt) {
-
-          if (datas[j].stDt != datas[j].edDt) {
-            str = str + '<div class="divCnts" style="top:'+topVal+'px">'
-
-            if(tdTag[i].id.replace(/-/gi, '') == datas[j].stDt) {
-              str = str + '<a href="#">' + datas[j].conDtl + " (" + datas[j].usrNm + ")" + '</a>'
-            } else {
-              str = str + '<a href="#"></a>'
-            }
-
-          } else {
-            str = str + '<div class="divCnt" style="top:'+topVal+'px">'
-
-            if(datas[j].stTm != '04') {
-              str = str + '<a href="#">' + datas[j].conDtl + " (" + datas[j].usrNm + ")" + " - "  + datas[j].stTmNm + '</a>'
-            } else {
-              str = str + '<a href="#">' + datas[j].conDtl + " (" + datas[j].usrNm + ")" + '</a>'
-            }
-
-          }
-          str = str + '</div>'
-          str = str + '<br />'
-
-          if(datas[j].stFullDt != datas[j].edFullDt) {
-            datas[j].stFullDt = setNewDate(datas[j].stFullDt)
-          } else {
-            datas[j].stFullDt = datas[j].edFullDt
-          }
-          topVal += 20;
-
-        }
-      }
-      $('#'+tdTag[i].id).append(str);
-    }
-
-    str = "";
-    topVal = 30;
-  }
-
+  modal.style.display = "block";
 }
 
-function setNewDate(arg) {
-
-  var newDay = new Date(arg.split("-")[0], arg.split("-")[1], arg.split("-")[2]);
-  var newYear = "";
-  var newMonth = "";
-  var newDate = "";
-
-  newDay.setDate(newDay.getDate()+1)
-
-  newYear = newDay.getFullYear();
-  newMonth = String(newDay.getMonth()).length === 1 ? '0' + newDay.getMonth() : newDay.getMonth();
-  newDate = String(newDay.getDate()).length === 1 ? '0' + newDay.getDate() : newDay.getDate();
-
-  return newYear+'-'+newMonth+'-'+newDate;
-
-}

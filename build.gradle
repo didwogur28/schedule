@@ -39,17 +39,17 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')     // 특정버전을 명시하지 않으면 위에 작성한 ${springBootVersion} 버전을 따라감
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
+    implementation('org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0')
 
-    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
+    implementation('com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4')
 
     annotationProcessor('org.projectlombok:lombok')
     implementation('org.projectlombok:lombok')
 
     testImplementation("org.springframework.security:spring-security-test")
 
-    implementation 'javax.servlet:jstl'
-    implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
+    implementation('javax.servlet:jstl')
+    implementation("org.apache.tomcat.embed:tomcat-embed-jasper")
 
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat:2.1.0.RELEASE')
 
@@ -57,10 +57,10 @@ dependencies {
 
     implementation('org.springframework.boot:spring-boot-starter-security')
 
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation('com.google.code.gson:gson:2.8.6')
 
-    implementation 'net.nurigo:javaSDK:2.2'
+    implementation('net.nurigo:javaSDK:2.2')
 
-
+    implementation('org.lazyluke:log4jdbc-remix:0.2.7')     // log4jdbc
 }
 

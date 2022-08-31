@@ -2,6 +2,7 @@ package com.schedule.config;
 
 import com.schedule.properties.DatabaseProperties;
 import com.zaxxer.hikari.HikariDataSource;
+import net.sf.log4jdbc.Log4jdbcProxyDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -29,7 +30,7 @@ public class DatabaseConfig {
 
     @Bean(name="dataSource")
     public DataSource dataSource() {
-        DataSource dataSource = new HikariDataSource(databaseProperties.getHikariConfig());
+        DataSource dataSource = new Log4jdbcProxyDataSource(new HikariDataSource(databaseProperties.getHikariConfig()));
         return dataSource;
     }
 

@@ -13,24 +13,36 @@
 
         $(document).ready(function() {
 
-            setCalData();
+            setCalData('now');
         })
 
         // 이번달 일정 조회
-        function setCalData() {
+        function setCalData(arg) {
 
             var date = "";
-            var year = new Date().getFullYear();
-            var month = new Date().getMonth()+1;
-            var day = new Date().getDate();
+            var year = "";
+            var month = "";
+            var day = "";
 
-            month = String(month).length === 1 ? '0' + month : month;
-            day = String(day).length === 1 ? '0' + day : day;
+            if(arg == 'now') {
 
-            date = year+'-'+month+'-'+day;
+                year = new Date().getFullYear();
+                month = new Date().getMonth()+1;
+                day = new Date().getDate();
+
+                month = String(month).length === 1 ? '0' + month : month;
+                day = String(day).length === 1 ? '0' + day : day;
+
+                arg = year + month;
+                date = year+'-'+month+'-'+day;
+
+            } else {
+                date = arg;
+                arg = arg.replace('-', '');
+            }
 
             $.ajax({
-                url:"/schedule/sch/getCntInfo?cpnCd=${cpnCd}&date="+year+month,
+                url:"/schedule/sch/getCntInfo?cpnCd=${cpnCd}&date="+arg,
                 type: "GET",
                 success: function(result) {
                     if(result != null && !result.empty) {
@@ -55,20 +67,29 @@
         function chgMonth(arg) {
             var thisDay = $('.year-month').text();
             var date = "";
+            var prevMonth = "";
+            var nextMonth = "";
 
             if(arg == 'prev') {
-                date = thisDay.split('.')[0] + '-' + String(Number(thisDay.split('.')[1])-1);
+
+                prevMonth = String(Number(thisDay.split('.')[1])-1);
+                prevMonth = prevMonth.length === 1 ? '0' + prevMonth : prevMonth;
+
+                date = thisDay.split('.')[0] + '-' + prevMonth;
+
             } else {
-                date = thisDay.split('.')[0] + '-' + String(Number(thisDay.split('.')[1])+1);
+
+                nextMonth = String(Number(thisDay.split('.')[1])+1);
+                nextMonth = nextMonth.length === 1 ? '0' + nextMonth : nextMonth;
+
+                date = thisDay.split('.')[0] + '-' + nextMonth;
             }
 
-            calendarInitM(date);
+            setCalData(date);
         }
 
         // 이번달 일정 등록
         function saveMonthCnt() {
-
-            setThisWeek(weeks);
 
             var formData = $("#saveContent").serialize();
 
@@ -92,24 +113,11 @@
             })
         }
 
-        // 해당일정의 주차 세팅
-        function setThisWeek(arg){
+        // 선택 한 일정 정보 조회
+        function getDayCnt(usrId, stDt) {
 
-            var stDay = $("#stDay").val();
-            var edDay = $("#edDay").val();
-
-            for(var i=0; i<arg.length; i++) {
-
-                if(arg[i].includes(stDay)){
-                    $("#stWk").val(i+1);
-                }
-
-                if(arg[i].includes(edDay)){
-                    $("#edWk").val(i+1);
-                }
-            }
+            alert(usrId)
         }
-
     </script>
 </head>
 
