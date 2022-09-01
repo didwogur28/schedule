@@ -228,6 +228,7 @@ function setCntInfo(datas) {
         }
       }
       $('#'+tdTag[i].id).append(str);
+      
     }
 
     str = "";
