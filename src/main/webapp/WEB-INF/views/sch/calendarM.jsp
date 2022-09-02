@@ -113,11 +113,11 @@
             })
         }
 
-        // 선택 한 일정 정보 조회
-        function getDayCnt(usrId, stDt) {
-
-            alert(usrId)
+        // 일정 상세 페이지
+        function thisModal(seq) {
+            location.href='/schedule/sch/goCalendar?cpnCd=${cpnCd}&tab=3&seq='+seq;
         }
+
     </script>
 </head>
 

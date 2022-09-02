@@ -57,8 +57,7 @@
                                       ,ed_tm
                                       ,stat_cd
         )
-        select
-              ,(select coalesce(max(seq), 0) + 1
+        select (select coalesce(max(seq), 0) + 1
                   from sch.sch_cnt_ctrl)
               ,#{cpnCd}::varchar
               ,#{usrId}
@@ -71,4 +70,26 @@
               ,'CNT100'
          where not exists (select 1 from upsert)
     </insert>
+
+    <select id="getConDetailInfo" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        select cnt.seq as "seq"
+              ,cnt.cpn_cd as "cpnCd"
+              ,cnt.usr_id as "usrId"
+              ,usr.usr_nm as "usrNm"
+              ,cnt.con_cd as "conCd"
+              ,(select com_dtl_nm
+                  from sch.sch_com_cd
+                 where com_dtl_cd = cnt.con_dtl) as "conDtl"
+              ,concat(substring(st_dt,1,4),'-',substring(st_dt,5,2),'-',substring(st_dt,7)) as "stFullDt"
+              ,cnt.st_dt as "stDt"
+              ,cnt.st_tm as "stTm"
+              ,concat(substring(ed_dt,1,4),'-',substring(ed_dt,5,2),'-',substring(ed_dt,7)) as "edFullDt"
+              ,cnt.ed_dt as "edDt"
+              ,cnt.ed_tm as "edTm"
+          from sch.sch_cnt_ctrl cnt
+         inner join sch.sch_usr usr
+                 on usr.cpn_cd = cnt.cpn_cd
+                and usr.usr_id = cnt.usr_id
+         where cnt.seq = #{seq}::numeric
+    </select>
 </mapper>

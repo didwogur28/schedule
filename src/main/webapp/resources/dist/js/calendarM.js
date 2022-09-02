@@ -200,18 +200,18 @@ function setCntInfo(datas) {
             str = str + '<div class="divCnts" style="top:'+topVal+'px">'
 
             if(tdTag[i].id.replace(/-/gi, '') == datas[j].stDt) {
-              str = str + '<a href="#" onclick="thisModal(\''+datas[j] +'\')">' + datas[j].conDtl + " (" + datas[j].usrNm + ")" + '</a>'
+              str = str + '<a href="#" onclick="thisModal('+ datas[j].seq + '); event.cancelBubble=true">' + datas[j].conDtl + " (" + datas[j].usrNm + ")" + '</a>'
             } else {
-              str = str + '<a href="#" onclick="thisModal(\''+datas[j]+'\')"></a>'
+              str = str + '<a href="#" onclick="thisModal('+ datas[j].seq + '); event.cancelBubble=true"></a>'
             }
 
           } else {
             str = str + '<div class="divCnt" style="top:'+topVal+'px">'
 
             if(datas[j].stTm != '04') {
-              str = str + '<a href="#" onclick="thisModal(\''+datas[j]+'\')"><label class="tmChk">●</label>' + " " + datas[j].conDtl + " (" + datas[j].usrNm + ")" + " - "  + datas[j].stTmNm + '</a>'
+              str = str + '<a href="#" onclick="thisModal('+ datas[j].seq + '); event.cancelBubble=true"><label class="tmChk">●</label>' + " " + datas[j].conDtl + " (" + datas[j].usrNm + ")" + " - "  + datas[j].stTmNm + '</a>'
             } else {
-              str = str + '<a href="#" onclick="thisModal(\''+datas[j]+'\')"><label class="tmChk">○</label>' + " " + datas[j].conDtl + " (" + datas[j].usrNm + ")" + '</a>'
+              str = str + '<a href="#" onclick="thisModal('+ datas[j].seq + '); event.cancelBubble=true"><label class="tmChk">○</label>' + " " + datas[j].conDtl + " (" + datas[j].usrNm + ")" + '</a>'
             }
 
           }
@@ -329,14 +329,4 @@ function modalInitM() {
   }
 }
 
-// 등록 일정 출력 모달 팝업 창
-function thisModal(datas) {
-  console.log(datas.stDt);
-  var modal = document.getElementById('myModal');
-  var span = document.getElementsByClassName("close")[0];
-  var closeA = document.getElementsByClassName("close-a")[0];
-  var closeBtn = document.getElementsByClassName("close-btn")[0];
-
-  modal.style.display = "block";
-}
 

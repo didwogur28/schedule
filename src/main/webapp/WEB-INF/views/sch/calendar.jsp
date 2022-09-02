@@ -28,11 +28,6 @@
                 location.href='/schedule/sch/goCalendar?cpnCd=${cpnCd}&tab=2';
             });
 
-            $("#goList").click(function() {
-
-                location.href='/schedule/sch/goCalendar?cpnCd=${cpnCd}&tab=3';
-            });
-
             clickTabCal(tabNum);
         })
 
@@ -41,15 +36,18 @@
             $(".cal-list-tab a").removeClass("current");
 
             if(tabNum == 1) {
+
                 $(".cal-list-tab #goWeek").addClass("current");
             } else if(tabNum == 2) {
+
                 $(".cal-list-tab #goMonth").addClass("current");
-            } else {
-                $(".cal-list-tab #goList").addClass("current");
+            } else if(tabNum == 3) {
+
+                $(".cal-list-tab #goConDetail").addClass("current");
             }
 
             $.ajax({
-                url:"/schedule/sch/goDetailCalendar?cpnCd=${cpnCd}&tabNum="+tabNum,
+                url:"/schedule/sch/goDetailCalendar?cpnCd=${cpnCd}&tabNum="+tabNum+"&seq=${seq}",
                 type: "GET",
                 dataType: "html",
                 success: function(html) {
@@ -65,11 +63,11 @@
 
 
 <body class="calBody">
-    <div class="cal-detail">
-        <ul class="cal-list">
+    <div class="cal-detail" >
+        <ul id="conList" class="cal-list">
             <li class="cal-list-tab"><a href="#" id="goWeek" class="tab">주간</a></li>
             <li class="cal-list-tab"><a href="#" id="goMonth" class="current tab">월간</a></li>
-            <li class="cal-list-tab"><a href="#" id="goList" class="tab">목록</a></li>
+            <li class="cal-list-tab"><a href="#" id="goConDetail" class="tab">상세</a></li>
         </ul>
     </div>
 

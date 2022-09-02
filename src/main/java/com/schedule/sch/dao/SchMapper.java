@@ -12,4 +12,6 @@ public interface SchMapper {
 
     public void saveMonthCnt(Map<String, Object> modelMap) throws Exception;
 
+    public Map<String, Object> getConDetailInfo(Map<String, Object> modelMap) throws Exception;
+
 }

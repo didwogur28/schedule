@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -31,10 +30,12 @@ public class SchController {
     @RequestMapping(value = "/sch/goCalendar")
     public String goCalendar(@RequestParam(value="cpnCd", required=true) String cpnCd,
                              @RequestParam(value="tab", required=true) String tab,
+                             @RequestParam(value="seq", required=false) String seq,
                              Map<String, Object> modelMap, HttpSession session){
 
         modelMap.put("cpnCd", cpnCd);
         modelMap.put("tab", tab);
+        modelMap.put("seq", seq);
 
         return "sch/calendar";
     }
@@ -43,14 +44,23 @@ public class SchController {
     @RequestMapping(value = "/sch/goDetailCalendar")
     public String goDetailCalendar(@RequestParam(value="cpnCd", required=true) String cpnCd,
                                    @RequestParam(value="tabNum", required=true) String tabNum,
+                                   @RequestParam(value="seq", required=false) String seq,
                                    Map<String, Object> modelMap) throws Exception {
 
         modelMap.put("cpnCd", cpnCd);
+        modelMap.put("seq", seq);
 
-        if("1".equals(tabNum)) {
+        if("1".equals(tabNum)) {            // 주간 목록
             return "sch/calendarW";
 
-        } else if("2".equals(tabNum)) {
+        } else if("3".equals(tabNum)) {     // 일정 상세
+
+            Map<String, Object> conDetailInfo = schService.getConDetailInfo(modelMap);
+            modelMap.put("conDetailInfo", conDetailInfo);
+
+            return "sch/conDetail";
+
+        } else {                            // 월간 목록
 
             modelMap.put("comClsCd", "CNT_CD");
             List<Map<String, Object>> cntCodeList = commonService.getCodeList(modelMap);
@@ -61,10 +71,6 @@ public class SchController {
             modelMap.put("cntTmCodeList", cntTmCodeList);
 
             return "sch/calendarM";
-
-        }else {
-            return "sch/calendarL";
-
         }
     }
 
